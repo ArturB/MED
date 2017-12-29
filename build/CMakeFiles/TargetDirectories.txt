@@ -1,3 +1,9 @@
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/install/strip.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/package_source.dir
 C:/Users/Artur/Projekty/MED/build/CMakeFiles/MED.dir
-C:/Users/Artur/Projekty/MED/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/Artur/Projekty/MED/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/package.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/install.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/install/local.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/edit_cache.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/rebuild_cache.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/list_install_components.dir

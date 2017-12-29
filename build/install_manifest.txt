@@ -1,0 +1,2 @@
+C:/Users/Artur/Projekty/MED/build/_CPack_Packages/win32/NSIS/MED-1.0.1-win32/bin/MED.exe
+C:/Users/Artur/Projekty/MED/build/_CPack_Packages/win32/NSIS/MED-1.0.1-win32/include/MedConfig.h

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Artur/Projekty/MED/src/main.cpp
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+MedConfig.h
+C:/Users/Artur/Projekty/MED/src/MedConfig.h
+MathFunctions.h
+C:/Users/Artur/Projekty/MED/src/MathFunctions.h
+
+MedConfig.h
+
