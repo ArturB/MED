@@ -2,10 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "MedConfig.h"
+ 
 int main (int argc, char *argv[])
 {
   if (argc < 2)
     {
+    fprintf(stdout,"%s Version %d.%d\n",
+            argv[0],
+            Tutorial_VERSION_MAJOR,
+            Tutorial_VERSION_MINOR);
     fprintf(stdout,"Usage: %s number\n",argv[0]);
     return 1;
     }
@@ -14,4 +20,4 @@ int main (int argc, char *argv[])
   fprintf(stdout,"The square root of %g is %g\n",
           inputValue, outputValue);
   return 0;
-} 
+}
