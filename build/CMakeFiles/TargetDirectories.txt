@@ -1,3 +1,3 @@
-/home/artur/Projekty/C/MED/build/CMakeFiles/rebuild_cache.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/MED.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/edit_cache.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/MED.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Artur/Projekty/MED/build/CMakeFiles/ZERO_CHECK.dir

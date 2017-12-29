@@ -4,8 +4,11 @@
 #include <math.h>
 #include "MedConfig.h"
  
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
+	system("pause");
+
+
   if (argc < 2)
     {
     fprintf(stdout,"%s Version %d.%d\n",
