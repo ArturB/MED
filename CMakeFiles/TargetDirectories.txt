@@ -1,3 +1,0 @@
-/home/artur/Projekty/C/MED/CMakeFiles/rebuild_cache.dir
-/home/artur/Projekty/C/MED/CMakeFiles/MED.dir
-/home/artur/Projekty/C/MED/CMakeFiles/edit_cache.dir

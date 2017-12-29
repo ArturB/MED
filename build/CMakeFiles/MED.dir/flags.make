@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/artur/Projekty/C/MED 
+CXX_INCLUDES = -I/home/artur/Projekty/C/MED/build 
 
