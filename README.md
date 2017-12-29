@@ -10,11 +10,11 @@ Budowanie projektu: aby zbudować projekt, należy mieć zainstalowany CMake htt
 
 ## Visual Studio:
 
-W folderze ./build znajduje się solucja Visual Studio, która zawiera trzy projekty: ALL_BUILD, MED oraz ZERO_CHECK. Właściwy kod źródłowy projektu znajduje się w projekcie MED. Póki co jest tam jeden plik main.cpp, demonstracyjnie obliczający pierwiastek kwadratowy z zadanej liczby. Kompilujemy, budujemy i piszemy tak jak standardowo się to robi w Visual Studio. 
+W folderze ./build znajduje się solucja Visual Studio, plik MED.sln, która zawiera trzy projekty: ALL_BUILD, MED oraz ZERO_CHECK. Właściwy kod źródłowy projektu znajduje się w projekcie MED. Póki co jest tam tylko jeden plik main.cpp, demonstracyjnie obliczający pierwiastek kwadratowy z zadanej liczby. 
 
 ## Unix Makefile:
 
-W folderze ./build jest Makefile, kompilujemy projekt poprzez make. 
+W folderze ./build jest też plik Makefile. 
 
 # Kontakt
 
