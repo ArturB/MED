@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/MED.dir/main.cpp.obj"
+  "CMakeFiles/MED.dir/main.cpp.o"
   "MED.pdb"
-  "MED.exe"
-  "MED.exe.manifest"
-  "libMED.dll.a"
+  "MED"
 )
 
 # Per-language clean rules from dependency scanning.

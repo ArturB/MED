@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Artur/Projekty/MED/src/main.cpp
+/home/artur/Projekty/C/MED/src/main.cpp
 stdio.h
 -
 stdlib.h
@@ -14,9 +14,9 @@ stdlib.h
 math.h
 -
 MedConfig.h
-C:/Users/Artur/Projekty/MED/src/MedConfig.h
+/home/artur/Projekty/C/MED/src/MedConfig.h
 MathFunctions.h
-C:/Users/Artur/Projekty/MED/src/MathFunctions.h
+/home/artur/Projekty/C/MED/src/MathFunctions.h
 
 MedConfig.h
 
