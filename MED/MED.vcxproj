@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClInclude Include="BorutaForest.h" />
     <ClInclude Include="KoronackiForest.h" />
+    <ClInclude Include="ParsedData.h" />
     <ClInclude Include="SprintTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

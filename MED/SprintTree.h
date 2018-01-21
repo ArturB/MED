@@ -2,6 +2,10 @@
 class SprintTree
 {
 public:
+
+	/**
+	 * 
+	 */
 	SprintTree();
 	~SprintTree();
 };
