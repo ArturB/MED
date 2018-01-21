@@ -1,2 +1,0 @@
-/home/artur/Projekty/C/MED/build/_CPack_Packages/Linux/TZ/MED-1.0.1-Linux/bin/MED
-/home/artur/Projekty/C/MED/build/_CPack_Packages/Linux/TZ/MED-1.0.1-Linux/include/MedConfig.h

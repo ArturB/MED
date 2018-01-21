@@ -1,9 +1,0 @@
-/home/artur/Projekty/C/MED/build/CMakeFiles/install/strip.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/install/local.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/install.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/package.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/package_source.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/edit_cache.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/MED.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/rebuild_cache.dir
-/home/artur/Projekty/C/MED/build/CMakeFiles/list_install_components.dir
