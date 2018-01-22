@@ -12,7 +12,7 @@ private:
 	std::vector<std::vector<T>> data;
 
 public:
-	ParsedData();
+	ParsedData(std::vector<std::vector<T>> data, std::vector<T> headers);
 	/** Opcjonalnie jakieœ konstruktory */
 	std::vector<T>& getHeaders();
 	void setHeaders(const std::vector<T>& headers);
@@ -26,9 +26,10 @@ public:
 };
 
 template<typename T>
-ParsedData<T>::ParsedData()
+ParsedData<T>::ParsedData(std::vector<std::vector<T>> data, std::vector<T> headers)
 {
-	headers = std::vector<T>();
+	this->data = data;
+	this->headers = headers;
 }
 
 template<typename T>
