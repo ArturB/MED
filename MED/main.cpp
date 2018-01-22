@@ -4,7 +4,6 @@
 #include <vector>
 #include <fstream>
 #include "ParsedData.h"
-#include "DataTypes.h"
 
 std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
 {
@@ -39,7 +38,7 @@ int main(int argc, char** argv) {
 	
 	// Load adult data
 	std::vector<std::vector<std::string>> adultData = loadData(dataType.getFileName(dataType.adult));
-	std::vector<std::string> adultHeaders = dataType.getHeaders(dataType.adult);
+	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
 	ParsedData<std::string> adultParsedData = ParsedData<std::string>(adultData, adultHeaders);
 
 	std::vector<std::string> row = adultParsedData.getRow(1);
@@ -50,11 +49,9 @@ int main(int argc, char** argv) {
 	column[0] = "tralala";
 	adultParsedData.setColumn(0, column);
 
-	column[0] = "tralala";
-
 	// Load flag data
 	std::vector<std::vector<std::string>> flagData = loadData(dataType.getFileName(dataType.flag));
-	std::vector<std::string> flagHeaders = dataType.getHeaders(dataType.flag);
+	std::vector<DataHeader> flagHeaders = dataType.getHeaders(dataType.flag);
 	ParsedData<std::string> flagParsedData = ParsedData<std::string>(flagData, flagHeaders);
 
 	return 0;
