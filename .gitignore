@@ -5,3 +5,6 @@
 /build/.vs/MED/v15
 *.opendb
 *.OPENDB
+/.vs/*
+*.suo
+*.SUO
