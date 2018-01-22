@@ -2,13 +2,14 @@
 
 #include <vector>
 
-
+enum DATA_TYPE { DISCRETE, NUMERIC };
 
 template<typename T>
 class ParsedData
 {
 private:
 	std::vector<T> headers;
+	std::vector<DATA_TYPE> types;
 	std::vector<std::vector<T>> data;
 
 public:
@@ -16,6 +17,8 @@ public:
 	/** Opcjonalnie jakieœ konstruktory */
 	std::vector<T>& getHeaders();
 	void setHeaders(const std::vector<T>& headers);
+	std::vector<DATA_TYPE> getTypes();
+	void setTypes(std::vector<const DATA_TYPE>& types);
 	std::vector<T>& getRow(int i);
 	void setRow(int i, const std::vector<T>& row);
 	std::vector<T>& getColumn(int i);
@@ -38,8 +41,13 @@ std::vector<T>& ParsedData<T>::getHeaders() {
 }
 
 template<typename T>
-void ParsedData<T>::setHeaders(const std::vector<T>& headers) {
-	this->headers = headers;
+std::vector<T>& ParsedData<T>::getTypes() {
+	return types;
+}
+
+template<typename T>
+void ParsedData<T>::setTypes(const std::vector<T>& types) {
+	this->types = types;
 }
 
 template<typename T>
