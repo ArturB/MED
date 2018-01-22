@@ -34,6 +34,14 @@ std::vector<std::vector<std::string>> loadData(std::string file) {
 	return result;
 }
 
+template<typename T>
+void print_row(const std::vector<T>& v) {
+	for (int i = 0; i < v.size; ++i) {
+		std::cout << v[i] << ", ";
+	}
+	std::cout << std::endl;
+}
+
 int main(int argc, char** argv) {
 	
 	// Load adult data
@@ -53,6 +61,11 @@ int main(int argc, char** argv) {
 	std::vector<std::vector<std::string>> flagData = loadData(dataType.getFileName(dataType.flag));
 	std::vector<DataHeader> flagHeaders = dataType.getHeaders(dataType.flag);
 	ParsedData<std::string> flagParsedData = ParsedData<std::string>(flagData, flagHeaders);
+
+	for (int i = 1; i < 10; ++i) {
+		print_row(adultParsedData.getRow(i));
+	}
+
 
 	return 0;
 }
