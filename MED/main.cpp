@@ -42,6 +42,16 @@ int main(int argc, char** argv) {
 	std::vector<std::string> adultHeaders = dataType.getHeaders(dataType.adult);
 	ParsedData<std::string> adultParsedData = ParsedData<std::string>(adultData, adultHeaders);
 
+	std::vector<std::string> row = adultParsedData.getRow(1);
+	row[0] = "eloelo";
+	adultParsedData.setRow(1, row);
+
+	std::vector<std::string> column = adultParsedData.getColumn(0);
+	column[0] = "tralala";
+	adultParsedData.setColumn(0, column);
+
+	column[0] = "tralala";
+
 	// Load flag data
 	std::vector<std::vector<std::string>> flagData = loadData(dataType.getFileName(dataType.flag));
 	std::vector<std::string> flagHeaders = dataType.getHeaders(dataType.flag);

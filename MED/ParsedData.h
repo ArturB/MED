@@ -21,7 +21,7 @@ public:
 	void setTypes(std::vector<const DATA_TYPE>& types);
 	std::vector<T>& getRow(int i);
 	void setRow(int i, const std::vector<T>& row);
-	std::vector<T>& getColumn(int i);
+	std::vector<T> getColumn(int i);
 	void setColumn(int i, const std::vector<T>& column);
 	
 
@@ -41,33 +41,39 @@ std::vector<T>& ParsedData<T>::getHeaders() {
 }
 
 template<typename T>
-std::vector<T>& ParsedData<T>::getTypes() {
+std::vector<DATA_TYPE> ParsedData<T>::getTypes() {
 	return types;
 }
 
 template<typename T>
-void ParsedData<T>::setTypes(const std::vector<T>& types) {
+void ParsedData<T>::setTypes(std::vector<const DATA_TYPE>& types) {
 	this->types = types;
 }
 
 template<typename T>
 std::vector<T>& ParsedData<T>::getRow(int i) {
-
+	return data[i];
 }
 
 template<typename T>
 void ParsedData<T>::setRow(int i, const std::vector<T>& row) {
-
+	data[i] = row;
 }
 
 template<typename T>
-std::vector<T>& ParsedData<T>::getColumn(int i) {
-
+std::vector<T> ParsedData<T>::getColumn(int i) {
+	std::vector<T> column;
+	for (auto const& row: data) {
+		column.push_back(row[i]);
+	}
+	return column;
 }
 
 template<typename T>
 void ParsedData<T>::setColumn(int i, const std::vector<T>& column) {
-
+	for (int r = 0; r < column.size(); ++r) {
+		data[r][i] = column[r];
+	}
 }
 
 
