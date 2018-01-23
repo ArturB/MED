@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "ParsedData.h"
+#include "SprintTree.h"
 
 DataType dataType;
 
@@ -59,14 +59,21 @@ int main(int argc, char** argv) {
 	column[0] = "tralala";
 	adultParsedData.setColumn(0, column);*/
 
-	// Load flag data
-	std::vector<std::vector<std::string>> flagData = loadData(dataType.getFileName(dataType.flag));
+	// Load flag data - learn and test
+	std::vector<std::vector<std::string>> flagLearnData = loadData("flag-learn.txt");
+	std::vector<std::vector<std::string>> flagTestData = loadData("flag-test.txt");
 	std::vector<DataHeader> flagHeaders = dataType.getHeaders(dataType.flag);
-	ParsedData<std::string> flagParsedData = ParsedData<std::string>(flagData, flagHeaders);
+	ParsedData<std::string> flagLearnParsedData = ParsedData<std::string>(flagLearnData, flagHeaders);
+	ParsedData<std::string> flagTestParsedData = ParsedData<std::string>(flagTestData, flagHeaders);
 
-	for (int i = 1; i < 10; ++i) {
-		print_row(flagParsedData.getRow(i));
-	}
+	int decision_attr = 1;
+	
+	SprintTree tree = SprintTree(flagLearnParsedData, decision_attr, 0.1);
+
+	std::cout << "Nodes number " << tree.nodes_number();
+	std::cout << "\nLeafs number: " << tree.leafs_number();
+	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
+
 
 
 	return 0;

@@ -2,8 +2,9 @@
 
 
 
-SprintTree::SprintTree()
+SprintTree::SprintTree(int decision_attr_)
 {
+	decision_attr = decision_attr_;
 }
 
 
