@@ -72,9 +72,8 @@ int main(int argc, char** argv) {
 
 	std::cout << "Nodes number " << tree.nodes_number();
 	std::cout << "\nLeafs number: " << tree.leafs_number();
+	std::cout << "\nLet's classify first row of test data. Got class: " << tree.classify(flagTestParsedData.getRow(1)) << " while expected " << flagTestParsedData.getRow(1)[decision_attr];
 	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
-
-
 
 	return 0;
 }
