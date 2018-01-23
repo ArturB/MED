@@ -93,5 +93,3 @@ struct DataType {
 		}
 	}
 };
-
-DataType dataType;

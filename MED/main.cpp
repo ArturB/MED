@@ -5,6 +5,8 @@
 #include <fstream>
 #include "ParsedData.h"
 
+DataType dataType;
+
 std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
 {
 	std::vector<std::string> result;
@@ -36,7 +38,7 @@ std::vector<std::vector<std::string>> loadData(std::string file) {
 
 template<typename T>
 void print_row(const std::vector<T>& v) {
-	for (int i = 0; i < v.size; ++i) {
+	for (int i = 0; i < v.size(); ++i) {
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
@@ -45,7 +47,7 @@ void print_row(const std::vector<T>& v) {
 int main(int argc, char** argv) {
 	
 	// Load adult data
-	std::vector<std::vector<std::string>> adultData = loadData(dataType.getFileName(dataType.adult));
+	/*std::vector<std::vector<std::string>> adultData = loadData(dataType.getFileName(dataType.adult));
 	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
 	ParsedData<std::string> adultParsedData = ParsedData<std::string>(adultData, adultHeaders);
 
@@ -55,7 +57,7 @@ int main(int argc, char** argv) {
 
 	std::vector<std::string> column = adultParsedData.getColumn(0);
 	column[0] = "tralala";
-	adultParsedData.setColumn(0, column);
+	adultParsedData.setColumn(0, column);*/
 
 	// Load flag data
 	std::vector<std::vector<std::string>> flagData = loadData(dataType.getFileName(dataType.flag));
@@ -63,7 +65,7 @@ int main(int argc, char** argv) {
 	ParsedData<std::string> flagParsedData = ParsedData<std::string>(flagData, flagHeaders);
 
 	for (int i = 1; i < 10; ++i) {
-		print_row(adultParsedData.getRow(i));
+		print_row(flagParsedData.getRow(i));
 	}
 
 
