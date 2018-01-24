@@ -84,53 +84,48 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 	for (int i = 0; i < data.getData().size(); ++i) {
 		col.push_back(std::stoi(data.getColumn(col_num)[i]));
 	}
-	ParsedData<std::string>* data1;
-	ParsedData<std::string>* data2;
-	std::vector<int> part = std::vector<int>();
-	std::vector<int> best_part = std::vector<int>();
+	ParsedData<std::string> data1;
+	ParsedData<std::string> data2;
 	double best_thr = 0;
 	double best_gini = 0;
 	for (int i = 0; i < col.size(); ++i) {
 		int thr = col[i];
-		data1 = new ParsedData<std::string>();
-		data2 = new ParsedData<std::string>();
 		for (int j = 0; j < col.size(); ++j) {
 			if (col[j] <= thr) {
-				data1->getData().push_back(data.getData()[j]);
+				data1.getData().push_back(data.getData()[j]);
 			}
 			else {
-				data2->getData().push_back(data.getData()[j]);
+				data2.getData().push_back(data.getData()[j]);
 			}
 		}
-		if (data1->getData().size() == 0 || data2->getData().size() == 0)
+		if (data1.getData().size() == 0 || data2.getData().size() == 0)
 			continue;
-		double gini0 = gini(*data1, *data2);
+		double gini0 = gini(data1, data2);
 		if (gini0 < best_gini) {
 			best_gini = gini0;
-			best_part = part;
 			best_thr = thr;
 		}
-		delete data1;
-		delete data2;
+		data1.getData().clear();
+		data2.getData().clear();
 	}
 	SprintPartition res;
 	res.part_type = LE;
 	res.thr = std::to_string(best_thr);
 	res.gini = best_gini;
-	data1 = new ParsedData<std::string>();
-	data2 = new ParsedData<std::string>();
+	ParsedData<std::string>* rdata1 = new ParsedData<std::string>();
+	ParsedData<std::string>* rdata2 = new ParsedData<std::string>();
 	for (int j = 0; j < col.size(); ++j) {
 		if (col[j] <= best_thr) {
-			data1->getData().push_back(data.getData()[j]);
+			rdata1->getData().push_back(data.getData()[j]);
 		}
 		else {
-			data2->getData().push_back(data.getData()[j]);
+			rdata2->getData().push_back(data.getData()[j]);
 		}
 	}
-	if (data1->getData().size() == 0 || data2->getData().size() == 0)
+	if (rdata1->getData().size() == 0 || rdata2->getData().size() == 0)
 		res.gini = 1;
-	res.data1 = data1;
-	res.data2 = data2;
+	res.data1 = rdata1;
+	res.data2 = rdata2;
 	return res;
 }
 
@@ -141,50 +136,48 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 			vals.push_back(data.getColumn(col_num)[i]);
 		}
 	}
-	ParsedData<std::string>* data1;
-	ParsedData<std::string>* data2;
+	ParsedData<std::string> data1;
+	ParsedData<std::string> data2;
 	std::string best_thr;
 	double best_gini = 1;
 	for (int i = 0; i < vals.size(); ++i) {
 		std::string thr = vals[i];
-		data1 = new ParsedData<std::string>();
-		data2 = new ParsedData<std::string>();
 		for (int j = 0; j < data.getData().size(); ++j) {
 			if (data.getColumn(col_num)[j] == thr) {
-				data1->getData().push_back(data.getData()[j]);
+				data1.getData().push_back(data.getData()[j]);
 			}
 			else {
-				data2->getData().push_back(data.getData()[j]);
+				data2.getData().push_back(data.getData()[j]);
 			}
 		}
-		if (data1->getData().size() == 0 || data2->getData().size() == 0)
+		if (data1.getData().size() == 0 || data2.getData().size() == 0)
 			continue;
-		double gini0 = gini(*data1, *data2);
+		double gini0 = gini(data1, data2);
 		if (gini0 < best_gini) {
 			best_gini = gini0;
 			best_thr = thr;
 		}
-		delete data1;
-		delete data2;
+		data1.getData().clear();
+		data2.getData().clear();
 	}
 	SprintPartition res;
 	res.part_type = IN;
 	res.thr = best_thr;
 	res.gini = best_gini;
-	data1 = new ParsedData<std::string>();
-	data2 = new ParsedData<std::string>();
+	ParsedData<std::string>* rdata1 = new ParsedData<std::string>();
+	ParsedData<std::string>* rdata2 = new ParsedData<std::string>();
 	for (int j = 0; j < data.getData().size(); ++j) {
 		if (data.getColumn(col_num)[j] == best_thr) {
-			data1->getData().push_back(data.getData()[j]);
+			rdata1->getData().push_back(data.getData()[j]);
 		}
 		else {
-			data2->getData().push_back(data.getData()[j]);
+			rdata2->getData().push_back(data.getData()[j]);
 		}
 	}
-	if (data1->getData().size() == 0 || data2->getData().size() == 0)
+	if (rdata1->getData().size() == 0 || rdata2->getData().size() == 0)
 		res.gini = 1;
-	res.data1 = data1;
-	res.data2 = data2;
+	res.data1 = rdata1;
+	res.data2 = rdata2;
 	return res;
 }
 
@@ -197,14 +190,8 @@ double SprintTree::gini(ParsedData<std::string>& set1, ParsedData<std::string>& 
 	for (int i = 0; i < set2.getData().size(); ++i) {
 		sizes2[set2.getRow(i)[decision_attr]] += 1;
 	}
-	double sizes1sum = 0;
-	for (auto i = sizes1.begin(); i != sizes1.end(); ++i) {
-		sizes1sum += i->second;
-	}
-	double sizes2sum = 0;
-	for (auto i = sizes2.begin(); i != sizes2.end(); ++i) {
-		sizes2sum += i->second;
-	}
+	double sizes1sum = set1.getData().size();
+	double sizes2sum = set2.getData().size();
 	double gini1 = 0; double gini2 = 0;
 	for (auto i = sizes1.begin(); i != sizes1.end(); ++i) {
 		gini1 += std::pow(i->second / sizes1sum, 2);
