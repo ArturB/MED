@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include "SprintTree.h"
+#include "KoronackiForest.h"
 
 DataType dataType;
 
@@ -66,14 +67,19 @@ int main(int argc, char** argv) {
 	ParsedData<std::string> flagLearnParsedData = ParsedData<std::string>(flagLearnData, flagHeaders);
 	ParsedData<std::string> flagTestParsedData = ParsedData<std::string>(flagTestData, flagHeaders);
 
-	int decision_attr = 1;
+	int decision_attr = 6;
 	
+	/*
 	SprintTree tree = SprintTree(flagLearnParsedData, decision_attr, 0.1);
 
 	std::cout << "Nodes number " << tree.nodes_number();
 	std::cout << "\nLeafs number: " << tree.leafs_number();
 	std::cout << "\nLet's classify first row of test data. Got class: " << tree.classify(flagTestParsedData.getRow(1)) << " while expected " << flagTestParsedData.getRow(1)[decision_attr];
 	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
+	*/
+
+	KoronackiForest koronackiForest = KoronackiForest(flagLearnParsedData, flagTestParsedData, decision_attr);
+	koronackiForest.getAttrsWeight();
 
 	return 0;
 }

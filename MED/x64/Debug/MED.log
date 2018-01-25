@@ -1,4 +1,3 @@
 ﻿  main.cpp
-c:\users\artur\downloads\projekty\med\med\datatypes.h(94): warning C4715: 'DataType::getHeaders': not all control paths return a value
-  MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Debug\MED.exe
-  MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Debug\MED.pdb (Partial PDB)
+c:\users\mateusz\documents\med\med\datatypes.h(94): warning C4715: 'DataType::getHeaders': not all control paths return a value
+  MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.exe

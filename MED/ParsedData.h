@@ -17,6 +17,7 @@ public:
 	std::vector<DataHeader>& getHeaders();
 	void setHeaders(std::vector<DataHeader>& headers_);
 	std::vector<T>& getRow(int i);
+	void addRow(const std::vector<T>& row);
 	void setRow(int i, const std::vector<T>& row);
 	std::vector<T> getColumn(int i);
 	void setColumn(int i, const std::vector<T>& column);
@@ -48,6 +49,11 @@ void ParsedData<T>::setHeaders(std::vector<DataHeader>& headers_) {
 template<typename T>
 std::vector<T>& ParsedData<T>::getRow(int i) {
 	return data[i];
+}
+
+template<typename T>
+void ParsedData<T>::addRow(const std::vector<T>& row) {
+	data.push_back(row);
 }
 
 template<typename T>
