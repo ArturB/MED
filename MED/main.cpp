@@ -92,28 +92,26 @@ void startBorutaAlgorithm(ParsedData<std::string>& data, int decisionAttr) {
 
 void runUserTextInterface() {
 	std::cout << "           ------------ START ------------" << std::endl;
-	while (true) {
-		std::cout << "------------ Koronacki / Boruta Algorithm ------------" << std::endl;
-		std::cout << "Please choose data type to load (number): " << std::endl;
-		std::cout << "1. Adults" << std::endl;
-		std::cout << "2. Flags" << std::endl;
-		int typeNr;
-		std::cin >> typeNr;
-		ParsedData<std::string> data = parseData(typeNr);
-		std::cout << "Please enter index of decision attribute (number from 0): " << std::endl;
-		int decision_attr;
-		std::cin >> decision_attr;
-		std::cout << "Please choose algorithm type to start (number): " << std::endl;
-		std::cout << "1. Koronacki algorithm" << std::endl;
-		std::cout << "2. Boruta algorithm" << std::endl;
-		int algorithmNr;
-		std::cin >> algorithmNr;
-		if (algorithmNr == 1)
-			startKoronackiAlgorithm(data, decision_attr);
-		else
-			startBorutaAlgorithm(data, decision_attr);
-		std::cout << "------------ Finished ------------" << std::endl;
-	}
+	std::cout << "------------ Koronacki / Boruta Algorithm ------------" << std::endl;
+	std::cout << "Please choose data type to load (number): " << std::endl;
+	std::cout << "1. Adults" << std::endl;
+	std::cout << "2. Flags" << std::endl;
+	int typeNr;
+	std::cin >> typeNr;
+	ParsedData<std::string> data = parseData(typeNr);
+	std::cout << "Please enter index of decision attribute (number from 0): " << std::endl;
+	int decision_attr;
+	std::cin >> decision_attr;
+	std::cout << "Please choose algorithm type to start (number): " << std::endl;
+	std::cout << "1. Koronacki algorithm" << std::endl;
+	std::cout << "2. Boruta algorithm" << std::endl;
+	int algorithmNr;
+	std::cin >> algorithmNr;
+	if (algorithmNr == 1)
+		startKoronackiAlgorithm(data, decision_attr);
+	else
+		startBorutaAlgorithm(data, decision_attr);
+	std::cout << "------------ Finished ------------" << std::endl;
 }
 
 int main(int argc, char** argv) {
