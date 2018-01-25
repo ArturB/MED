@@ -1,9 +1,14 @@
-﻿  main.cpp
+﻿  BorutaForest.cpp
+BorutaForest.cpp(17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+BorutaForest.cpp(18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+BorutaForest.cpp(37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  SprintTree.cpp
+SprintTree.cpp(214): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
+SprintTree.cpp(215): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
   Generating code
-c:\users\artur\downloads\projekty\med\med\datatypes.h(94): warning C4715: 'DataType::getHeaders': not all control paths return a value
-  278 of 843 functions (33.0%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    74 functions had inline decision re-evaluated but remain unchanged
+  35 of 1388 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    24 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Release\MED.exe
   MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Release\MED.pdb (Full PDB)

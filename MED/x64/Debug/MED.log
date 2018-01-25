@@ -1,4 +1,17 @@
-﻿  main.cpp
+﻿  SprintTree.cpp
+c:\users\artur\downloads\projekty\med\med\sprinttree.cpp(193): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
+c:\users\artur\downloads\projekty\med\med\sprinttree.cpp(194): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
+  SprintPartition.cpp
+  main.cpp
+  KoronackiForest.cpp
+c:\users\artur\downloads\projekty\med\med\koronackiforest.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\artur\downloads\projekty\med\med\koronackiforest.cpp(53): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\artur\downloads\projekty\med\med\koronackiforest.cpp(98): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  BorutaForest.cpp
+c:\users\artur\downloads\projekty\med\med\borutaforest.cpp(17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\artur\downloads\projekty\med\med\borutaforest.cpp(18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\artur\downloads\projekty\med\med\borutaforest.cpp(37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
 c:\users\artur\downloads\projekty\med\med\datatypes.h(94): warning C4715: 'DataType::getHeaders': not all control paths return a value
   MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Debug\MED.exe
   MED.vcxproj -> C:\Users\Artur\Downloads\Projekty\MED\x64\Debug\MED.pdb (Partial PDB)

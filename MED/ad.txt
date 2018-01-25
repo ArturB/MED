@@ -1,0 +1,6 @@
+19, Private, 306225, HS-grad, 9, Never-married, Handlers-cleaners, Own-child, White, Male, 0, 0, 25, United-States, <=50K
+45, Private, 289353, HS-grad, 9, Married-civ-spouse, Transport-moving, Husband, Black, Male, 0, 0, 24, United-States, <=50K
+25, Private, 53147, Bachelors, 13, Never-married, Exec-managerial, Own-child, Black, Male, 0, 0, 50, United-States, <=50K
+31, Private, 84154, Some-college, 10, Married-civ-spouse, Sales, Husband, White, Male, 0, 0, 38, ?, >50K
+35, Private, 330664, HS-grad, 9, Divorced, Transport-moving, Not-in-family, White, Male, 0, 0, 40, United-States, <=50K
+43, Private, 191765, HS-grad, 9, Divorced, Tech-support, Unmarried, Black, Female, 0, 0, 35, United-States, <=50K
