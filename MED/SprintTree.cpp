@@ -9,6 +9,8 @@ SprintTree::SprintTree(int decision_attr_)
 
 SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double gini_thr) {
 
+	//std::cout << "Calculating next node... Data size: " << data.getData().size() << std::endl;
+
 	decision_attr = decision_attr_;
 
 	double gini0 = gini(data, data);
@@ -23,6 +25,9 @@ SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double
 		decision.part_type = LEAF;
 		Left = nullptr;
 		Right = nullptr;
+
+		//std::cout << "Reached a leaf!" << std::endl;
+
 	}
 	else {
 		SprintPartition best_decision;
