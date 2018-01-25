@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 #include "SprintTree.h"
-#include "KoronackiForest.h"
+#include "BorutaForest.h"
 
 DataType dataType;
 
@@ -78,8 +78,14 @@ int main(int argc, char** argv) {
 	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
 	*/
 
-	KoronackiForest koronackiForest = KoronackiForest(flagLearnParsedData, flagTestParsedData, decision_attr);
-	koronackiForest.getAttrsWeight();
+	KoronackiForest koronackiForest = KoronackiForest(0.1);
+	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
+	std::cout << "-----Koronacki-----" << std::endl;
+	koronackiForest.printAttrsWeight(attrsWeight, flagLearnParsedData.getHeaders());
+
+	BorutaForest borutaForest = BorutaForest(0.1);
+	std::cout << "-----Boruta-----" << std::endl;
+	borutaForest.getAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
 
 	return 0;
 }

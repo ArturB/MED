@@ -10,21 +10,18 @@
 class KoronackiForest
 {
 private:
-	const double gini_thr = 0.1;
-	int decision_attr;
-	ParsedData<std::string> data;
-	ParsedData<std::string> trainingData;
+	double gini_thr;
 
 	std::vector<int> getCondAttrsIndexes(ParsedData<std::string>& dataSet, int decAttrIndex);
 	std::vector<ParsedData<std::string>> drawDataSets(ParsedData<std::string>& data, int nrOfRecords);
 	ParsedData<std::string> permutateDataSetAttr(ParsedData<std::string>& dataSet, int attrIndex);
-	std::map<int, double> getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData);
-	std::map<int, double> getAttrsWeight(std::map<int, double>& attrsAccuracy, std::map<int, double>& attrsAccuracyPermuted);
+	std::map<int, double> getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData, int decisionAttr);
 
 public:
-	KoronackiForest(ParsedData<std::string> data, ParsedData<std::string> trainingData, int decisionAttr);
-	void printAttrsWeight(std::map<int, double> attrsWeight);
-	std::map<int, double> getAttrsWeight();
+	KoronackiForest(double gini_thr);
+	void printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers);
+	std::map<int, double> getAttrsWeight(std::map<int, double>& attrsAccuracy, std::map<int, double>& attrsAccuracyPermuted);
+	std::map<int, double> calculateAttrsWeight(ParsedData<std::string> data, ParsedData<std::string> trainingData, int decisionAttr);
 
 	~KoronackiForest();
 };
