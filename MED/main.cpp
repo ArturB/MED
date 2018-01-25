@@ -72,15 +72,15 @@ int main(int argc, char** argv) {
 	adultParsedData.setColumn(0, column);*/
 
 	// Load flag data - learn and test
-	/*
+	
 	std::vector<std::vector<std::string>> flagLearnData = loadData("flag-learn.txt");
 	std::vector<std::vector<std::string>> flagTestData = loadData("flag-test.txt");
 	std::vector<DataHeader> flagHeaders = dataType.getHeaders(dataType.flag);
 	ParsedData<std::string> flagLearnParsedData = ParsedData<std::string>(flagLearnData, flagHeaders);
 	ParsedData<std::string> flagTestParsedData = ParsedData<std::string>(flagTestData, flagHeaders);
 
-	int decision_attr = 6;
-	*/
+	int decision_attr = 1;
+	
 
 	/*
 	SprintTree tree = SprintTree(flagLearnParsedData, decision_attr, 0.1);
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
 	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
 	*/
 
-	/*
+	
 	KoronackiForest koronackiForest = KoronackiForest(0.1);
 	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
 	std::cout << "-----Koronacki-----" << std::endl;
@@ -100,9 +100,10 @@ int main(int argc, char** argv) {
 	BorutaForest borutaForest = BorutaForest(0.1);
 	std::cout << "-----Boruta-----" << std::endl;
 	borutaForest.getAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
-	*/
+	
 
 	// Load flag data - learn and test
+	/*
 	std::vector<std::vector<std::string>> adultLearnData = loadData("adult-learn.txt");
 	std::vector<std::vector<std::string>> adultTestData = loadData("adult-test.txt");
 	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
@@ -120,7 +121,7 @@ int main(int argc, char** argv) {
 	BorutaForest borutaForest = BorutaForest(0.1);
 	std::cout << "-----Boruta-----" << std::endl;
 	borutaForest.getAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);
-	
+	*/
 
 	return 0;
 }
