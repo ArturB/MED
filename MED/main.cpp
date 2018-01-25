@@ -111,27 +111,23 @@ int main(int argc, char** argv) {
 	//ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
 
 	// Load flags data - learn and test 
-	int decision_attr = 1;
-	std::cout << "Loading adult-learn" << std::endl;
-	std::vector<std::vector<std::string>> adultLearnData = loadData("adult-learn.txt");
-	std::cout << "Loading adult-test" << std::endl;
-	std::vector<std::vector<std::string>> adultTestData = loadData("adult-test.txt");
+	int decision_attr = 14;
+	std::cout << "Loading adult" << std::endl;
+	std::vector<std::vector<std::string>> adultData = loadData("adult.txt");
 	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
 	std::cout << "Parsing adult-learn" << std::endl;
-	ParsedData<std::string> adultLearnParsedData = ParsedData<std::string>(adultLearnData, adultHeaders);
-	std::cout << "Parsing adult-test" << std::endl;
-	ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
+	ParsedData<std::string> adultParsedData = ParsedData<std::string>(adultData, adultHeaders);
 
-	std::cout << "Data size: " << adultLearnParsedData.getData().size() << std::endl;
+	std::cout << "Data size: " << adultParsedData.getData().size() << std::endl;
 	
 	KoronackiForest koronackiForest = KoronackiForest(0.1);
-	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);
+	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(adultParsedData, decision_attr);
 	std::cout << "-----Koronacki-----" << std::endl;
-	koronackiForest.printAttrsWeight(attrsWeight, adultLearnParsedData.getHeaders());
+	koronackiForest.printAttrsWeight(attrsWeight, adultParsedData.getHeaders());
 
 	BorutaForest borutaForest = BorutaForest(0.1);
 	std::cout << "-----Boruta-----" << std::endl;
-	borutaForest.getAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);
+	borutaForest.getAttrsWeight(adultParsedData, decision_attr);
 	
 
 	return 0;

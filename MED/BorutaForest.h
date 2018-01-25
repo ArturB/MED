@@ -12,7 +12,7 @@ private:
 public:
 	BorutaForest(double gini_thr);
 	void printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers);
-	std::map<int, double> getAttrsWeight(ParsedData<std::string> data, ParsedData<std::string> trainingData, int decisionAttr);
+	std::map<int, double> getAttrsWeight(ParsedData<std::string> data, int decisionAttr);
 
 	~BorutaForest();
 };

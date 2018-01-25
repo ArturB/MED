@@ -22,9 +22,11 @@ std::vector<int> KoronackiForest::getCondAttrsIndexes(ParsedData<std::string>& d
 	return condAttrs;
 }
 
-std::vector<ParsedData<std::string>> KoronackiForest::drawDataSets(ParsedData<std::string>& data, int nrOfRecords) {
+std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>> KoronackiForest::drawDataSets(ParsedData<std::string>& data, int nrOfRecords) {
 
 	std::vector<ParsedData<std::string>> drawedDataSets = std::vector<ParsedData<std::string>>();
+	ParsedData<std::string> trainingData = ParsedData<std::string>(data.getData(), data.getHeaders());
+	std::set<int> indexToRemove = std::set<int>();
 	int dataSize = data.getData().size();
 
 	for (int i = 0; i < nrOfRecords; ++i) {
@@ -35,13 +37,23 @@ std::vector<ParsedData<std::string>> KoronackiForest::drawDataSets(ParsedData<st
 
 	for (int i = 0; i < int(dataSize / nrOfRecords); ++i) {
 		for (int j = 0; j < nrOfRecords; ++j) {
-			std::vector<std::string> row = data.getRow(rand() % dataSize);
-			//std::cout << row[0] << std::endl;
+			int index = rand() % dataSize;
+			std::vector<std::string> row = data.getRow(index);
+			indexToRemove.insert(index);
 			drawedDataSets[j].addRow(row);
 		}
 	}
 
-	return drawedDataSets;
+	std::set<int>::reverse_iterator revIt = indexToRemove.rbegin();
+
+	while (revIt != indexToRemove.rend()) {
+		trainingData.removeRow(*revIt);
+		revIt++;
+	}
+
+	std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>> dataSets = std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>>(drawedDataSets, trainingData);
+
+	return dataSets;
 }
 
 ParsedData<std::string> KoronackiForest::permutateDataSetAttr(ParsedData<std::string>& dataSet, int attrIndex) {
@@ -95,10 +107,12 @@ void KoronackiForest::printAttrsWeight(std::map<int, double> attrsWeight, std::v
 	}
 }
 
-std::map<int, double> KoronackiForest::calculateAttrsWeight(ParsedData<std::string> data, ParsedData<std::string> trainingData, int decisionAttr) {
+std::map<int, double> KoronackiForest::calculateAttrsWeight(ParsedData<std::string> data, int decisionAttr) {
 
 	std::vector<int> condAttrsIndexes = getCondAttrsIndexes(data, decisionAttr);
-	std::vector<ParsedData<std::string>> drawedDataSets = drawDataSets(data, condAttrsIndexes.size());
+	std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>> dataSets = drawDataSets(data, condAttrsIndexes.size());
+	std::vector<ParsedData<std::string>> drawedDataSets = dataSets.first;
+	ParsedData<std::string> trainingData = dataSets.second;
 	std::map<int, ParsedData<std::string>> drawedAttrsDataSets = std::map<int, ParsedData<std::string>>();
 	std::map<int, ParsedData<std::string>> permutedAttrsDataSets = std::map<int, ParsedData<std::string>>();
 
@@ -108,7 +122,9 @@ std::map<int, double> KoronackiForest::calculateAttrsWeight(ParsedData<std::stri
 		permutedAttrsDataSets[condAttrIndex] = permutateDataSetAttr(drawedDataSets[i], condAttrIndex);
 	}
 
+	std::cout << "Trees with normal columns" << std::endl;
 	std::map<int, double> drawedAttrsAccuracy = getAttrsAccuracy(drawedAttrsDataSets, trainingData, decisionAttr);
+	std::cout << "Trees with permuted columns" << std::endl;
 	std::map<int, double> permutedAttrsAccuracy = getAttrsAccuracy(permutedAttrsDataSets, trainingData, decisionAttr);
 	std::map<int, double> attrsWeight = getAttrsWeight(drawedAttrsAccuracy, permutedAttrsAccuracy);
 	//printAttrsWeight(attrsWeight, data.getHeaders());

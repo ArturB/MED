@@ -19,6 +19,7 @@ public:
 	std::vector<T>& getRow(int i);
 	void addRow(const std::vector<T>& row);
 	void setRow(int i, const std::vector<T>& row);
+	void removeRow(int index);
 	std::vector<T> getColumn(int i);
 	void addColumn(const std::vector<T>& column, DataHeader header);
 	void setColumn(int i, const std::vector<T>& column);
@@ -61,6 +62,11 @@ void ParsedData<T>::addRow(const std::vector<T>& row) {
 template<typename T>
 void ParsedData<T>::setRow(int i, const std::vector<T>& row) {
 	data[i] = row;
+}
+
+template<typename T>
+void ParsedData<T>::removeRow(int index) {
+	data.erase(data.begin() + index);
 }
 
 template<typename T>

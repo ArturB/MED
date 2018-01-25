@@ -32,11 +32,11 @@ void BorutaForest::printAttrsWeight(std::map<int, double> attrsWeight, std::vect
 	koroneckiForest.printAttrsWeight(attrsWeight, headers);
 }
 
-std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data, ParsedData<std::string> trainingData, int decisionAttr) {
+std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data, int decisionAttr) {
 
 	int headerSize = data.getHeaders().size();
 	ParsedData<std::string> replicatedData = replicateDataAttr(data);
-	std::map<int, double> attrsWeightKor = koroneckiForest.calculateAttrsWeight(data, trainingData, decisionAttr);
+	std::map<int, double> attrsWeightKor = koroneckiForest.calculateAttrsWeight(data, decisionAttr);
 	std::map<int, double> attrsWeightNor = std::map<int, double>();
 	std::map<int, double> attrsWeightRep = std::map<int, double>();
 	for (auto const& x : attrsWeightKor) {
