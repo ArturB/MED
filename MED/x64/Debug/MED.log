@@ -1,5 +1,13 @@
-﻿  KoronackiForest.cpp
+﻿  main.cpp
+  KoronackiForest.cpp
 c:\users\mateusz\documents\med\med\koronackiforest.cpp(30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\users\mateusz\documents\med\med\koronackiforest.cpp(65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\mateusz\documents\med\med\koronackiforest.cpp(113): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\koronackiforest.cpp(115): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  BorutaForest.cpp
+c:\users\mateusz\documents\med\med\borutaforest.cpp(17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\borutaforest.cpp(18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\borutaforest.cpp(41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+c:\users\mateusz\documents\med\med\datatypes.h(28): warning C4715: 'DataType::getFileName': not all control paths return a value
+c:\users\mateusz\documents\med\med\datatypes.h(94): warning C4715: 'DataType::getHeaders': not all control paths return a value
   MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.exe

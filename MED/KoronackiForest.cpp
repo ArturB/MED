@@ -98,12 +98,14 @@ std::map<int, double> KoronackiForest::getAttrsWeight(std::map<int, double>& att
 	return attrsWeight;
 }
 
-void KoronackiForest::printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers) {
+void KoronackiForest::printAttrsWeight(std::map<int, double> attrsWeight, std::map<int, double> attrsAcc, std::map<int, double> attrsPAcc, std::vector<DataHeader> headers) {
 
-	std::cout << "Wagi atrybutow:" << std::endl;
+	std::cout << "Attributes weights:" << std::endl;
 	
 	for (auto const& x : attrsWeight) {
-		std::cout << headers[x.first].header << " - " << x.second << std::endl;
+		std::cout << headers[x.first].header << ": " << std::endl;
+		std::cout << "   " << "accuracy - " << attrsAcc[x.first] << " / " << attrsPAcc[x.first] << std::endl;
+		std::cout << "   " << "weights - " << x.second << std::endl;
 	}
 }
 
@@ -127,7 +129,7 @@ std::map<int, double> KoronackiForest::calculateAttrsWeight(ParsedData<std::stri
 	std::cout << "Trees with permuted columns" << std::endl;
 	std::map<int, double> permutedAttrsAccuracy = getAttrsAccuracy(permutedAttrsDataSets, trainingData, decisionAttr);
 	std::map<int, double> attrsWeight = getAttrsWeight(drawedAttrsAccuracy, permutedAttrsAccuracy);
-	//printAttrsWeight(attrsWeight, data.getHeaders());
+	printAttrsWeight(attrsWeight, drawedAttrsAccuracy, permutedAttrsAccuracy, data.getHeaders());
 
 	return attrsWeight;
 }

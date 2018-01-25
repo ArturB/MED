@@ -20,7 +20,7 @@ private:
 
 public:
 	KoronackiForest(double gini_thr);
-	void printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers);
+	void printAttrsWeight(std::map<int, double> attrsWeight, std::map<int, double> attrsAcc, std::map<int, double> attrsPAcc, std::vector<DataHeader> headers);
 	std::map<int, double> getAttrsWeight(std::map<int, double>& attrsAccuracy, std::map<int, double>& attrsAccuracyPermuted);
 	std::map<int, double> calculateAttrsWeight(ParsedData<std::string> data, int decisionAttr);
 

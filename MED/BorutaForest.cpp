@@ -29,7 +29,11 @@ ParsedData<std::string>& BorutaForest::replicateDataAttr(ParsedData<std::string>
 }
 
 void BorutaForest::printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers) {
-	koroneckiForest.printAttrsWeight(attrsWeight, headers);
+	std::cout << "Attributes final weights:" << std::endl;
+
+	for (auto const& x : attrsWeight) {
+		std::cout << headers[x.first].header << " - " << x.second << std::endl;
+	}
 }
 
 std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data, int decisionAttr) {
@@ -51,7 +55,7 @@ std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data,
 	}
 
 	std::map<int, double> attrsWeight = koroneckiForest.getAttrsWeight(attrsWeightNor, attrsWeightRep);
-	koroneckiForest.printAttrsWeight(attrsWeight, data.getHeaders());
+	printAttrsWeight(attrsWeight, data.getHeaders());
 
 	return attrsWeight;
 }

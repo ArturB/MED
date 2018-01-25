@@ -45,6 +45,7 @@ std::vector<std::vector<std::string>> loadData(std::string file) {
 			result.push_back(newLine.second);
 		}
 	}
+	is.close();
 	return result;
 }
 
@@ -54,6 +55,65 @@ void print_row(const std::vector<T>& v) {
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
+}
+
+ParsedData<std::string> parseData(int typeNr) {
+
+	DataType::dataType dType;
+	if (typeNr == 1) {
+		dType = dataType.adult;
+	}
+	else {
+		dType = dataType.flag;
+	}
+
+	std::cout << "Loading " << dataType.getFileName(dType) << std::endl;
+	std::vector<std::vector<std::string>> data = loadData(dataType.getFileName(dType));
+	std::vector<DataHeader> headers = dataType.getHeaders(dType);
+	std::cout << "Parsing " << dataType.getFileName(dType) << std::endl;
+	ParsedData<std::string> parsedData = ParsedData<std::string>(data, headers);
+
+	std::cout << "Data size: " << parsedData.getData().size() << std::endl;
+
+	return parsedData;
+}
+
+void startKoronackiAlgorithm(ParsedData<std::string>& data, int decisionAttr) {
+	KoronackiForest koronackiForest = KoronackiForest(0.1);
+	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(data, decisionAttr);
+	std::cout << "-----Koronacki-----" << std::endl;
+}
+
+void startBorutaAlgorithm(ParsedData<std::string>& data, int decisionAttr) {
+	BorutaForest borutaForest = BorutaForest(0.1);
+	std::cout << "-----Boruta-----" << std::endl;
+	borutaForest.getAttrsWeight(data, decisionAttr);
+}
+
+void runUserTextInterface() {
+	std::cout << "           ------------ START ------------" << std::endl;
+	while (true) {
+		std::cout << "------------ Koronacki / Boruta Algorithm ------------" << std::endl;
+		std::cout << "Please choose data type to load (number): " << std::endl;
+		std::cout << "1. Adults" << std::endl;
+		std::cout << "2. Flags" << std::endl;
+		int typeNr;
+		std::cin >> typeNr;
+		ParsedData<std::string> data = parseData(typeNr);
+		std::cout << "Please enter index of decision attribute (number from 0): " << std::endl;
+		int decision_attr;
+		std::cin >> decision_attr;
+		std::cout << "Please choose algorithm type to start (number): " << std::endl;
+		std::cout << "1. Koronacki algorithm" << std::endl;
+		std::cout << "2. Boruta algorithm" << std::endl;
+		int algorithmNr;
+		std::cin >> algorithmNr;
+		if (algorithmNr == 1)
+			startKoronackiAlgorithm(data, decision_attr);
+		else
+			startBorutaAlgorithm(data, decision_attr);
+		std::cout << "------------ Finished ------------" << std::endl;
+	}
 }
 
 int main(int argc, char** argv) {
@@ -110,7 +170,8 @@ int main(int argc, char** argv) {
 	//ParsedData<std::string> adultLearnParsedData = ParsedData<std::string>(adultLearnData, adultHeaders);
 	//ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
 
-	// Load flags data - learn and test 
+	// Load flags data - learn and test
+	/*
 	int decision_attr = 14;
 	std::cout << "Loading adult" << std::endl;
 	std::vector<std::vector<std::string>> adultData = loadData("adult.txt");
@@ -128,7 +189,8 @@ int main(int argc, char** argv) {
 	BorutaForest borutaForest = BorutaForest(0.1);
 	std::cout << "-----Boruta-----" << std::endl;
 	borutaForest.getAttrsWeight(adultParsedData, decision_attr);
-	
+	*/
+	runUserTextInterface();
 
 	return 0;
 }
