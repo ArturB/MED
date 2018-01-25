@@ -8,8 +8,10 @@
 
 DataType dataType;
 
-std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
+std::pair<bool, std::vector<std::string>> getNextLineAndSplitIntoTokens(std::istream& str)
 {
+	std::pair<bool, std::vector<std::string>> nextLine;
+	nextLine.first = true;
 	std::vector<std::string> result;
 	std::string line;
 	std::getline(str, line);
@@ -19,11 +21,17 @@ std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
 
 	while (std::getline(lineStream, cell, ',')) {
 		result.push_back(cell);
+		if (cell == " ?") {
+			nextLine.first = false;
+			break;
+		}
 	}
 	if (!lineStream && cell.empty()) {
 		result.push_back("");
+		nextLine.first = false;
 	}
-	return result;
+	nextLine.second = result;
+	return nextLine;
 }
 
 std::vector<std::vector<std::string>> loadData(std::string file) {
@@ -32,7 +40,10 @@ std::vector<std::vector<std::string>> loadData(std::string file) {
 	std::ifstream is(file);
 
 	while (!is.eof()) {
-		result.push_back(getNextLineAndSplitIntoTokens(is));
+		std::pair<bool, std::vector<std::string>> newLine = getNextLineAndSplitIntoTokens(is);
+		if (newLine.first) {
+			result.push_back(newLine.second);
+		}
 	}
 	return result;
 }
@@ -61,6 +72,7 @@ int main(int argc, char** argv) {
 	adultParsedData.setColumn(0, column);*/
 
 	// Load flag data - learn and test
+	/*
 	std::vector<std::vector<std::string>> flagLearnData = loadData("flag-learn.txt");
 	std::vector<std::vector<std::string>> flagTestData = loadData("flag-test.txt");
 	std::vector<DataHeader> flagHeaders = dataType.getHeaders(dataType.flag);
@@ -68,7 +80,8 @@ int main(int argc, char** argv) {
 	ParsedData<std::string> flagTestParsedData = ParsedData<std::string>(flagTestData, flagHeaders);
 
 	int decision_attr = 6;
-	
+	*/
+
 	/*
 	SprintTree tree = SprintTree(flagLearnParsedData, decision_attr, 0.1);
 
@@ -78,6 +91,7 @@ int main(int argc, char** argv) {
 	std::cout << "\nAccuracy on test set: " << tree.accuracy(flagTestParsedData);
 	*/
 
+	/*
 	KoronackiForest koronackiForest = KoronackiForest(0.1);
 	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
 	std::cout << "-----Koronacki-----" << std::endl;
@@ -86,6 +100,27 @@ int main(int argc, char** argv) {
 	BorutaForest borutaForest = BorutaForest(0.1);
 	std::cout << "-----Boruta-----" << std::endl;
 	borutaForest.getAttrsWeight(flagLearnParsedData, flagTestParsedData, decision_attr);
+	*/
+
+	// Load flag data - learn and test
+	std::vector<std::vector<std::string>> adultLearnData = loadData("adult-learn.txt");
+	std::vector<std::vector<std::string>> adultTestData = loadData("adult-test.txt");
+	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
+	ParsedData<std::string> adultLearnParsedData = ParsedData<std::string>(adultLearnData, adultHeaders);
+	ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
+
+	int decision_attr = 13;
+
+	
+	KoronackiForest koronackiForest = KoronackiForest(0.1);
+	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);
+	std::cout << "-----Koronacki-----" << std::endl;
+	koronackiForest.printAttrsWeight(attrsWeight, adultLearnParsedData.getHeaders());
+
+	BorutaForest borutaForest = BorutaForest(0.1);
+	std::cout << "-----Boruta-----" << std::endl;
+	borutaForest.getAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);
+	
 
 	return 0;
 }
