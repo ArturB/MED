@@ -34,7 +34,7 @@ SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double
 	}
 	else {
 		SprintPartition best_decision;
-		best_decision.gini = 1.1;
+		best_decision.gini = 1.9;
 		SprintPartition part;
 		for (int i = 1; i < data.getHeaders().size(); ++i) {
 			if (i != decision_attr) {
@@ -59,14 +59,30 @@ SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double
 				}
 			}
 		}
-		//std::cout << "Decision type made: " << printPartType(best_decision.part_type) << std::endl;
-		decision = best_decision;
-		decision.data1->setHeaders(data.getHeaders());
-		decision.data2->setHeaders(data.getHeaders());
-		Left = new SprintTree(*(decision.data1), decision_attr_, gini_thr);
-		delete decision.data1;
-		Right = new SprintTree(*(decision.data2), decision_attr_, gini_thr);
-		delete decision.data2;
+
+		// if elements are undistinguishable, there is a leaf
+		if (best_decision.gini > 1) {
+			decision_class = biggest_class(data);
+			decision.data1 = nullptr;
+			decision.data2 = nullptr;
+			decision.gini = gini0;
+			decision.thr = "";
+			decision.part_type = LEAF;
+			Left = nullptr;
+			Right = nullptr;
+		}
+		else {
+			//std::cout << "Decision type made: " << printPartType(best_decision.part_type) << std::endl;
+			decision = best_decision;
+			decision.data1->setHeaders(data.getHeaders());
+			decision.data2->setHeaders(data.getHeaders());
+
+			Left = new SprintTree(*(decision.data1), decision_attr_, gini_thr);
+			delete decision.data1;
+			Right = new SprintTree(*(decision.data2), decision_attr_, gini_thr);
+			delete decision.data2;
+		}
+		
 	}
 }
 
@@ -92,6 +108,9 @@ std::string SprintTree::biggest_class(ParsedData<std::string>& data) {
 }
 
 SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>& data, int col_num) {
+
+	
+
 	ParsedData<std::string> data1;
 	ParsedData<std::string> data2;
 	//sort numeric data
@@ -122,11 +141,15 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 			data2.getData().pop_back();
 		}
 	}
-	double gini0 = gini(data1, data2);
+	/*double gini0 = gini(data1, data2);
 	if (gini0 < best_gini) {
 		best_gini = gini0;
 		best_thr = std::stoi(data1.getData().back()[col_num]);
-	}
+	}*/
+
+	/*if (data.getData().size() == 2) {
+		std::cout << "1 elem: " << data.getData()[0][col_num] << ", 2 elem: " << data.getData()[1][col_num] << ", thr = " << best_thr << ", gini = " << gini(data, data) << std::endl;
+	}*/
 
 	SprintPartition res;
 	res.part_type = LE;
@@ -142,8 +165,12 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 			rdata2->getData().push_back(data.getData()[j]);
 		}
 	}
-	if (rdata1->getData().size() == 0 || rdata2->getData().size() == 0)
-		res.gini = 1;
+	if (rdata1->getData().size()) {
+		res.gini = 2;
+	}
+	if (rdata2->getData().size()) {
+		res.gini = 2;
+	}
 	res.data1 = rdata1;
 	res.data2 = rdata2;
 	return res;
@@ -171,8 +198,8 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 				data2.getData().push_back(data.getData()[j]);
 			}
 		}
-		if (data1.getData().size() == 0 || data2.getData().size() == 0)
-			continue;
+		//if (data1.getData().size() == 0 || data2.getData().size() == 0)
+		//	continue;
 		double gini0 = gini(data1, data2);
 		if (gini0 < best_gini) {
 			best_gini = gini0;
@@ -195,8 +222,13 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 			rdata2->getData().push_back(data.getData()[j]);
 		}
 	}
-	if (rdata1->getData().size() == 0 || rdata2->getData().size() == 0)
-		res.gini = 1;
+	if (rdata1->getData().size() == 0) {
+		res.gini = 2;
+	}
+	if (rdata2->getData().size() == 0) {
+		res.gini = 2;
+	}
+		
 	res.data1 = rdata1;
 	res.data2 = rdata2;
 	return res;
