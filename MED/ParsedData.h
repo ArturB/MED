@@ -24,6 +24,7 @@ public:
 	void setColumn(int i, const std::vector<T>& column);
 
 	std::vector<std::vector<T>>& getData();
+	void setData(std::vector<std::vector<std::string>>& data_);
 
 	~ParsedData();
 };
@@ -91,6 +92,10 @@ std::vector<std::vector<T>>& ParsedData<T>::getData() {
 	return data;
 }
 
+template<typename T>
+void ParsedData<T>::setData(std::vector<std::vector<std::string>>& data_) {
+	data = data_;
+}
 
 template<typename T>
 ParsedData<T>::~ParsedData()

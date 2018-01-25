@@ -3,7 +3,9 @@
 #include <string>
 #include "ParsedData.h"
 
-enum PART_TYPE { IN, LE, LEAF };
+enum PART_TYPE { NO, IN, LE, LEAF};
+
+std::string printPartType(PART_TYPE type);
 
 class SprintPartition
 {

@@ -110,18 +110,19 @@ int main(int argc, char** argv) {
 	//ParsedData<std::string> adultLearnParsedData = ParsedData<std::string>(adultLearnData, adultHeaders);
 	//ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
 
-	// Load flags data - learn and test
+	// Load flags data - learn and test 
 	int decision_attr = 1;
 	std::cout << "Loading adult-learn" << std::endl;
 	std::vector<std::vector<std::string>> adultLearnData = loadData("adult-learn.txt");
 	std::cout << "Loading adult-test" << std::endl;
 	std::vector<std::vector<std::string>> adultTestData = loadData("adult-test.txt");
-	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.flag);
+	std::vector<DataHeader> adultHeaders = dataType.getHeaders(dataType.adult);
 	std::cout << "Parsing adult-learn" << std::endl;
 	ParsedData<std::string> adultLearnParsedData = ParsedData<std::string>(adultLearnData, adultHeaders);
 	std::cout << "Parsing adult-test" << std::endl;
 	ParsedData<std::string> adultTestParsedData = ParsedData<std::string>(adultTestData, adultHeaders);
 
+	std::cout << "Data size: " << adultLearnParsedData.getData().size() << std::endl;
 	
 	KoronackiForest koronackiForest = KoronackiForest(0.1);
 	std::map<int, double> attrsWeight = koronackiForest.calculateAttrsWeight(adultLearnParsedData, adultTestParsedData, decision_attr);

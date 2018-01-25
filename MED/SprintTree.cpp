@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "SprintTree.h"
 #include "ParsedData.h"
 
@@ -9,11 +10,13 @@ SprintTree::SprintTree(int decision_attr_)
 
 SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double gini_thr) {
 
-	//std::cout << "Calculating next node... Data size: " << data.getData().size() << std::endl;
+	
 
 	decision_attr = decision_attr_;
 
 	double gini0 = gini(data, data);
+
+	//std::cout << "Calculating next node... Data size: " << data.getData().size() << ", total gini: " << gini0 << std::endl;
 
 	if (data.getData().size() < 2 || gini0 < gini_thr) {
 
@@ -31,10 +34,11 @@ SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double
 	}
 	else {
 		SprintPartition best_decision;
-		best_decision.gini = 1;
+		best_decision.gini = 1.1;
 		SprintPartition part;
 		for (int i = 1; i < data.getHeaders().size(); ++i) {
 			if (i != decision_attr) {
+				//std::cout << "Checking column " << i << std::endl;
 				if (data.getHeaders()[i].type == DISCRETE) {
 					part = best_attr_discrete_partition(data, i);
 					if (part.gini < best_decision.gini) {
@@ -55,11 +59,14 @@ SprintTree::SprintTree(ParsedData<std::string>& data, int decision_attr_, double
 				}
 			}
 		}
+		//std::cout << "Decision type made: " << printPartType(best_decision.part_type) << std::endl;
 		decision = best_decision;
 		decision.data1->setHeaders(data.getHeaders());
 		decision.data2->setHeaders(data.getHeaders());
 		Left = new SprintTree(*(decision.data1), decision_attr_, gini_thr);
+		delete decision.data1;
 		Right = new SprintTree(*(decision.data2), decision_attr_, gini_thr);
+		delete decision.data2;
 	}
 }
 
@@ -85,42 +92,50 @@ std::string SprintTree::biggest_class(ParsedData<std::string>& data) {
 }
 
 SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>& data, int col_num) {
-	std::vector<int> col = std::vector<int>();
-	for (int i = 0; i < data.getData().size(); ++i) {
-		col.push_back(std::stoi(data.getColumn(col_num)[i]));
-	}
 	ParsedData<std::string> data1;
 	ParsedData<std::string> data2;
-	double best_thr = 0;
-	double best_gini = 0;
-	for (int i = 0; i < col.size(); ++i) {
-		int thr = col[i];
-		for (int j = 0; j < col.size(); ++j) {
-			if (col[j] <= thr) {
-				data1.getData().push_back(data.getData()[j]);
-			}
-			else {
-				data2.getData().push_back(data.getData()[j]);
-			}
+	//sort numeric data
+	std::sort(data.getData().begin(), data.getData().end(),
+		[col_num](const std::vector<std::string>& a, const std::vector<std::string>& b) {
+		return std::stoi(a[col_num]) > std::stoi(b[col_num]);
+	});
+	data2.setData(data.getData());
+	data1.getData().push_back(data2.getData().back());
+	data2.getData().pop_back();
+
+	double best_thr = std::stoi(data1.getData().back()[col_num]);
+	double best_gini = gini(data1, data2);
+
+	for (int i = 0; i < data.getData().size() - 1; ++i) {
+		
+		if (data1.getData().back()[col_num] == data2.getData().back()[col_num]) {
+			data1.getData().push_back(data2.getData().back());
+			data2.getData().pop_back();
 		}
-		if (data1.getData().size() == 0 || data2.getData().size() == 0)
-			continue;
-		double gini0 = gini(data1, data2);
-		if (gini0 < best_gini) {
-			best_gini = gini0;
-			best_thr = thr;
+		else {
+			double gini0 = gini(data1, data2);
+			if (gini0 < best_gini) {
+				best_gini = gini0;
+				best_thr = std::stoi(data1.getData().back()[col_num]);
+			}
+			data1.getData().push_back(data2.getData().back());
+			data2.getData().pop_back();
 		}
-		data1.getData().clear();
-		data2.getData().clear();
 	}
+	double gini0 = gini(data1, data2);
+	if (gini0 < best_gini) {
+		best_gini = gini0;
+		best_thr = std::stoi(data1.getData().back()[col_num]);
+	}
+
 	SprintPartition res;
 	res.part_type = LE;
 	res.thr = std::to_string(best_thr);
 	res.gini = best_gini;
 	ParsedData<std::string>* rdata1 = new ParsedData<std::string>();
 	ParsedData<std::string>* rdata2 = new ParsedData<std::string>();
-	for (int j = 0; j < col.size(); ++j) {
-		if (col[j] <= best_thr) {
+	for (int j = 0; j < data.getData().size(); ++j) {
+		if (std::stoi(data.getData()[j][col_num]) <= best_thr) {
 			rdata1->getData().push_back(data.getData()[j]);
 		}
 		else {
@@ -137,18 +152,19 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>& data, int col_num) {
 	std::vector<std::string> vals = std::vector<std::string>();
 	for (int i = 0; i < data.getData().size(); ++i) {
-		if (std::find(vals.begin(), vals.end(), data.getColumn(col_num)[i]) == vals.end()) {
-			vals.push_back(data.getColumn(col_num)[i]);
+		if (std::find(vals.begin(), vals.end(), data.getData()[i][col_num]) == vals.end()) {
+			vals.push_back(data.getData()[i][col_num]);
 		}
 	}
 	ParsedData<std::string> data1;
 	ParsedData<std::string> data2;
 	std::string best_thr;
-	double best_gini = 1;
+	double best_gini = 1.1;
 	for (int i = 0; i < vals.size(); ++i) {
 		std::string thr = vals[i];
+		//std::cout << "Checking discrete thr = " << thr << std::endl;
 		for (int j = 0; j < data.getData().size(); ++j) {
-			if (data.getColumn(col_num)[j] == thr) {
+			if (data.getData()[j][col_num] == thr) {
 				data1.getData().push_back(data.getData()[j]);
 			}
 			else {
@@ -172,7 +188,7 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 	ParsedData<std::string>* rdata1 = new ParsedData<std::string>();
 	ParsedData<std::string>* rdata2 = new ParsedData<std::string>();
 	for (int j = 0; j < data.getData().size(); ++j) {
-		if (data.getColumn(col_num)[j] == best_thr) {
+		if (data.getData()[j][col_num] == best_thr) {
 			rdata1->getData().push_back(data.getData()[j]);
 		}
 		else {

@@ -39,8 +39,8 @@ std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data,
 	std::map<int, double> attrsWeightKor = koroneckiForest.calculateAttrsWeight(data, trainingData, decisionAttr);
 	std::map<int, double> attrsWeightNor = std::map<int, double>();
 	std::map<int, double> attrsWeightRep = std::map<int, double>();
-
 	for (auto const& x : attrsWeightKor) {
+		
 		if (x.first < headerSize) {
 			attrsWeightNor[x.first] = x.second;
 			attrsWeightRep[x.first + headerSize] = attrsWeightKor[x.first + headerSize];
