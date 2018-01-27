@@ -14,8 +14,10 @@ public:
 	PART_TYPE part_type;
 	int part_col;
 	std::string thr;
-	ParsedData<std::string>* data1;
-	ParsedData<std::string>* data2;
+	//ParsedData<std::string>* data1;
+	//ParsedData<std::string>* data2;
+	std::vector<int> set1;
+	std::vector<int> set2;
 	double gini;
 
 	SprintPartition();

@@ -24,6 +24,8 @@ public:
 	void addColumn(const std::vector<T>& column, DataHeader header);
 	void setColumn(int i, const std::vector<T>& column);
 
+	std::string getElem(int row_num, int col_num);
+
 	std::vector<std::vector<T>>& getData();
 	void setData(std::vector<std::vector<std::string>>& data_);
 
@@ -101,6 +103,11 @@ std::vector<std::vector<T>>& ParsedData<T>::getData() {
 template<typename T>
 void ParsedData<T>::setData(std::vector<std::vector<std::string>>& data_) {
 	data = data_;
+}
+
+template<typename T>
+std::string ParsedData<T>::getElem(int row_num, int col_num) {
+	return data[row_num][col_num];
 }
 
 template<typename T>

@@ -80,7 +80,7 @@ std::map<int, double> KoronackiForest::getAttrsAccuracy(std::map<int, ParsedData
 	for (auto& x : attrsDataSets) {
 		++h;
 		std::cout << "Koronacki, calculating tree " << h << "/" << attrsDataSets.size() << std::endl;
-		SprintTree tree = SprintTree(x.second, decisionAttr, gini_thr);
+		SprintTree tree = SprintTree::create(x.second, decisionAttr, gini_thr);
 		attrsAccuracy[x.first] = tree.accuracy(trainingData);
 	}
 
