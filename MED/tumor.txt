@@ -1,5 +1,5 @@
 age,sex,histologic.type,degree.of.diffe,bone,bone.marrow,lung,pleura,peritoneum,liver,brain,skin,neck,supraclavicular,axillar,mediastinum,abdominal,class
-DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE
+ DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE, DISCRETE
 >=60,female,,,false,false,false,false,false,true,false,false,false,false,false,false,false,lung
 >=60,male,,poorly,false,false,false,false,false,true,false,false,false,true,false,true,false,lung
 30-59,female,adefalse,,false,false,false,true,false,false,false,true,false,false,true,false,false,breast

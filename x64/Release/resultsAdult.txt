@@ -1,0 +1,85 @@
+           ------------ START ------------
+------------ Koronacki / Boruta Algorithm ------------
+Loading & Parsing: adult.txt
+Data size: 24137
+Decision attribute:  workclass
+-----Koronacki algorithm-----
+Trees with normal columns
+Koronacki, calculating tree 1/15
+Koronacki, calculating tree 2/15
+Koronacki, calculating tree 3/15
+Koronacki, calculating tree 4/15
+Koronacki, calculating tree 5/15
+Koronacki, calculating tree 6/15
+Koronacki, calculating tree 7/15
+Koronacki, calculating tree 8/15
+Koronacki, calculating tree 9/15
+Koronacki, calculating tree 10/15
+Koronacki, calculating tree 11/15
+Koronacki, calculating tree 12/15
+Koronacki, calculating tree 13/15
+Koronacki, calculating tree 14/15
+Koronacki, calculating tree 15/15
+Trees with permuted columns
+Koronacki, calculating tree 1/15
+Koronacki, calculating tree 2/15
+Koronacki, calculating tree 3/15
+Koronacki, calculating tree 4/15
+Koronacki, calculating tree 5/15
+Koronacki, calculating tree 6/15
+Koronacki, calculating tree 7/15
+Koronacki, calculating tree 8/15
+Koronacki, calculating tree 9/15
+Koronacki, calculating tree 10/15
+Koronacki, calculating tree 11/15
+Koronacki, calculating tree 12/15
+Koronacki, calculating tree 13/15
+Koronacki, calculating tree 14/15
+Koronacki, calculating tree 15/15
+Attributes weights:
+age: 
+   accuracy - 0.729109 / 0.729109
+   weights - 0
+ workclass: 
+   accuracy - 0.539877 / 0.738523
+   weights - -0.198646
+ fnlwgt: 
+   accuracy - 0.725619 / 0.676645
+   weights - 0.048974
+ education: 
+   accuracy - 0.629152 / 0.730802
+   weights - -0.10165
+ education-num: 
+   accuracy - 0.733975 / 0.733975
+   weights - 0
+ martial-status: 
+   accuracy - 0.704993 / 0.736302
+   weights - -0.0313095
+ occupation: 
+   accuracy - 0.516818 / 0.516818
+   weights - 0
+ relationship: 
+   accuracy - 0.554686 / 0.735773
+   weights - -0.181087
+ race: 
+   accuracy - 0.475883 / 0.475883
+   weights - 0
+ sex: 
+   accuracy - 0.608314 / 0.604929
+   weights - 0.00338481
+ capital-gain: 
+   accuracy - 0.739687 / 0.739687
+   weights - 0
+ capital-loss: 
+   accuracy - 0.739687 / 0.739687
+   weights - 0
+ hours-per-week: 
+   accuracy - 0.677808 / 0.677808
+   weights - 0
+ native-country: 
+   accuracy - 0.329702 / 0.329702
+   weights - 0
+ salary: 
+   accuracy - 0.633594 / 0.633594
+   weights - 0
+------------ Finished ------------

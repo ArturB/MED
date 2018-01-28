@@ -1,10 +1,20 @@
-﻿  main.cpp
+﻿  Parser.cpp
+  main.cpp
   Generating Code...
-  Skipping... (no relevant changes detected)
+  Compiling...
   SprintTree.cpp
+c:\users\mateusz\documents\med\med\sprinttree.cpp(229): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
+c:\users\mateusz\documents\med\med\sprinttree.cpp(230): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'double', possible loss of data
   SprintPartition.cpp
   KoronackiForest.cpp
+c:\users\mateusz\documents\med\med\koronackiforest.cpp(30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\koronackiforest.cpp(65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\koronackiforest.cpp(115): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   BorutaForest.cpp
+c:\users\mateusz\documents\med\med\borutaforest.cpp(17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\borutaforest.cpp(18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\mateusz\documents\med\med\borutaforest.cpp(41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
 C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1193,5): warning MSB8030: The linker switch "Minimum Required Version" requires "SubSystem" to be set.  Without "SubSystem", the "Minimum Required Version" would not be passed to linker and could prevent to the output binary from running on older Operating Systems.
   MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.exe
   MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.pdb (Full PDB)

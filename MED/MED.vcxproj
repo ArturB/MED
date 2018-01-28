@@ -117,6 +117,7 @@
     <ClCompile Include="BorutaForest.cpp" />
     <ClCompile Include="KoronackiForest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="SprintPartition.cpp" />
     <ClCompile Include="SprintTree.cpp" />
   </ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="KoronackiForest.h" />
     <ClInclude Include="ParsedData.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="SprintPartition.h" />
     <ClInclude Include="SprintTree.h" />
   </ItemGroup>
