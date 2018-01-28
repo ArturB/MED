@@ -1,0 +1,4 @@
+METHOD = K_MAX
+K_MAX = 50
+K_CPAR = 50
+K_PCL = 15
