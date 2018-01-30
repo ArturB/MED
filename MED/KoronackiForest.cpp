@@ -79,11 +79,12 @@ ParsedData<std::string> KoronackiForest::permutateDataSetAttr(ParsedData<std::st
 }
 
 
-//Zwraca mapê z: klucz - index atrybutu, wartoœæ - dok³adnoœæ klasyfikacji 
+//Zwraca mapy z: klucz - index atrybutu, wartoœæ - dok³adnoœæ klasyfikacji dla danych testuj¹cych i zpermutownaych danych testuj¹cych
 //Parametry wejœciowe: dane wejœciowe, dane testuj¹ce, atrybut decyzyjny.
-std::map<int, double> KoronackiForest::getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData, int decisionAttr) {
-
+std::pair<std::map<int, double>, std::map<int, double>> KoronackiForest::getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData, int decisionAttr) {
+	
 	std::map<int, double> attrsAccuracy = std::map<int, double>();
+	std::map<int, double> permAttrsAccuracy = std::map<int, double>();
 
 	int h = 0;
 	for (auto& x : attrsDataSets) {
@@ -91,9 +92,11 @@ std::map<int, double> KoronackiForest::getAttrsAccuracy(std::map<int, ParsedData
 		std::cout << "Koronacki, calculating tree " << h << "/" << attrsDataSets.size() << std::endl;
 		SprintTree tree = SprintTree::create(x.second, decisionAttr, gini_thr);
 		attrsAccuracy[x.first] = tree.accuracy(trainingData);
+		permAttrsAccuracy[x.first] = tree.accuracy(permutateDataSetAttr(trainingData, x.first));
 	}
 
-	return attrsAccuracy;
+	std::pair<std::map<int, double>, std::map<int, double>> allAttrsAccuracy = std::pair<std::map<int, double>, std::map<int, double>>(attrsAccuracy, permAttrsAccuracy);
+	return allAttrsAccuracy;
 }
 
 
@@ -131,18 +134,16 @@ std::map<int, double> KoronackiForest::calculateAttrsWeight(ParsedData<std::stri
 	std::vector<ParsedData<std::string>> drawedDataSets = dataSets.first;
 	ParsedData<std::string> trainingData = dataSets.second;
 	std::map<int, ParsedData<std::string>> drawedAttrsDataSets = std::map<int, ParsedData<std::string>>();
-	std::map<int, ParsedData<std::string>> permutedAttrsDataSets = std::map<int, ParsedData<std::string>>();
 
 	for (int i = 0; i < condAttrsIndexes.size(); ++i) {
 		int condAttrIndex = condAttrsIndexes[i];
 		drawedAttrsDataSets[condAttrIndex] = drawedDataSets[i];
-		permutedAttrsDataSets[condAttrIndex] = permutateDataSetAttr(drawedDataSets[i], condAttrIndex);
 	}
 
-	std::cout << "Trees with normal columns" << std::endl;
-	std::map<int, double> drawedAttrsAccuracy = getAttrsAccuracy(drawedAttrsDataSets, trainingData, decisionAttr);
-	std::cout << "Trees with permuted columns" << std::endl;
-	std::map<int, double> permutedAttrsAccuracy = getAttrsAccuracy(permutedAttrsDataSets, trainingData, decisionAttr);
+	std::cout << "Trees: " << std::endl;
+	std::pair<std::map<int, double>, std::map<int, double>> allAttrsAccuracy = getAttrsAccuracy(drawedAttrsDataSets, trainingData, decisionAttr);
+	std::map<int, double> drawedAttrsAccuracy = allAttrsAccuracy.first;
+	std::map<int, double> permutedAttrsAccuracy = allAttrsAccuracy.second;
 	std::map<int, double> attrsWeight = getAttrsWeight(drawedAttrsAccuracy, permutedAttrsAccuracy);
 	printAttrsWeight(attrsWeight, drawedAttrsAccuracy, permutedAttrsAccuracy, data.getHeaders());
 

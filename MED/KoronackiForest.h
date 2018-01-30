@@ -16,7 +16,7 @@ private:
 	std::vector<int> getCondAttrsIndexes(ParsedData<std::string>& dataSet, int decAttrIndex);
 	std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>> drawDataSets(ParsedData<std::string>& data, int nrOfRecords);
 	ParsedData<std::string> permutateDataSetAttr(ParsedData<std::string>& dataSet, int attrIndex);
-	std::map<int, double> getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData, int decisionAttr);
+	std::pair<std::map<int, double>, std::map<int, double>> getAttrsAccuracy(std::map<int, ParsedData<std::string>> attrsDataSets, ParsedData<std::string> trainingData, int decisionAttr);
 
 public:
 	KoronackiForest(double gini_thr);

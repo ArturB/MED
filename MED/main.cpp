@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <ctime>
 #include "Parser.h"
 #include "SprintTree.h"
 #include "BorutaForest.h"
@@ -42,6 +43,8 @@ void runUserTextInterface(std::string filename, int decision_attr, int algorithm
 }
 
 int main(int argc, char** argv) {
+
+	//srand(time(NULL));
 	std::string filename;
 	int decision_attr;
 	int algorithmNr;
