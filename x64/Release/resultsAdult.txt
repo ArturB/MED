@@ -1,7 +1,7 @@
            ------------ START ------------
 ------------ Koronacki / Boruta Algorithm ------------
 Loading & Parsing: adult.txt
-Data size: 24137
+Data size: 30162
 Decision attribute:  workclass
 -----Koronacki algorithm-----
 Trees with normal columns
@@ -38,48 +38,48 @@ Koronacki, calculating tree 14/15
 Koronacki, calculating tree 15/15
 Attributes weights:
 age: 
-   accuracy - 0.729109 / 0.729109
-   weights - 0
+   accuracy - 0.67734 / 0.718332
+   weights - -0.0409923
  workclass: 
-   accuracy - 0.539877 / 0.738523
-   weights - -0.198646
+   accuracy - 0.690359 / 0.739532
+   weights - -0.0491731
  fnlwgt: 
-   accuracy - 0.725619 / 0.676645
-   weights - 0.048974
+   accuracy - 0.739532 / 0.739532
+   weights - 0
  education: 
-   accuracy - 0.629152 / 0.730802
-   weights - -0.10165
+   accuracy - 0.0320197 / 0.186137
+   weights - -0.154117
  education-num: 
-   accuracy - 0.733975 / 0.733975
+   accuracy - 0.739532 / 0.739532
    weights - 0
  martial-status: 
-   accuracy - 0.704993 / 0.736302
-   weights - -0.0313095
+   accuracy - 0.041608 / 0.739532
+   weights - -0.697924
  occupation: 
-   accuracy - 0.516818 / 0.516818
-   weights - 0
+   accuracy - 0.739532 / 0.690975
+   weights - 0.0485574
  relationship: 
-   accuracy - 0.554686 / 0.735773
-   weights - -0.181087
+   accuracy - 0.695637 / 0.739532
+   weights - -0.0438951
  race: 
-   accuracy - 0.475883 / 0.475883
-   weights - 0
+   accuracy - 0.070373 / 0.739532
+   weights - -0.669159
  sex: 
-   accuracy - 0.608314 / 0.604929
-   weights - 0.00338481
+   accuracy - 0.739532 / 0.739532
+   weights - 0
  capital-gain: 
-   accuracy - 0.739687 / 0.739687
-   weights - 0
+   accuracy - 0.739532 / 0.738125
+   weights - 0.00140746
  capital-loss: 
-   accuracy - 0.739687 / 0.739687
-   weights - 0
+   accuracy - 0.725809 / 0.720619
+   weights - 0.00519001
  hours-per-week: 
-   accuracy - 0.677808 / 0.677808
+   accuracy - 0.739532 / 0.739532
    weights - 0
  native-country: 
-   accuracy - 0.329702 / 0.329702
-   weights - 0
+   accuracy - 0.735398 / 0.733023
+   weights - 0.00237509
  salary: 
-   accuracy - 0.633594 / 0.633594
-   weights - 0
+   accuracy - 0.730735 / 0.725106
+   weights - 0.00562984
 ------------ Finished ------------

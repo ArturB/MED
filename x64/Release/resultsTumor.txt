@@ -80,62 +80,62 @@ Koronacki, calculating tree 35/36
 Koronacki, calculating tree 36/36
 Attributes weights:
 age: 
-   accuracy - 0.425532 / 0.425532
-   weights - 0
+   accuracy - 0.276596 / 0.12766
+   weights - 0.148936
 sex: 
-   accuracy - 0.446809 / 0.446809
+   accuracy - 0.531915 / 0.531915
    weights - 0
 histologic.type: 
    accuracy - 0.361702 / 0.361702
    weights - 0
 degree.of.diffe: 
-   accuracy - 0.276596 / 0.340426
-   weights - -0.0638298
+   accuracy - 0.510638 / 0.340426
+   weights - 0.170213
 bone: 
-   accuracy - 0.212766 / 0.255319
-   weights - -0.0425532
+   accuracy - 0.404255 / 0.255319
+   weights - 0.148936
 bone.marrow: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.340426 / 0.276596
+   weights - 0.0638298
 lung: 
-   accuracy - 0.170213 / 0.170213
-   weights - 0
+   accuracy - 0.170213 / 0.361702
+   weights - -0.191489
 pleura: 
-   accuracy - 0.12766 / 0.12766
+   accuracy - 0.212766 / 0.212766
    weights - 0
 peritoneum: 
    accuracy - 0.340426 / 0.340426
    weights - 0
 liver: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.361702 / 0.446809
+   weights - -0.0851064
 brain: 
-   accuracy - 0.297872 / 0.297872
-   weights - 0
+   accuracy - 0.12766 / 0.382979
+   weights - -0.255319
 skin: 
-   accuracy - 0.425532 / 0.425532
-   weights - 0
+   accuracy - 0.255319 / 0.468085
+   weights - -0.212766
 neck: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.340426 / 0.425532
+   weights - -0.0851064
 supraclavicular: 
-   accuracy - 0.489362 / 0.489362
-   weights - 0
+   accuracy - 0.425532 / 0.468085
+   weights - -0.0425532
 axillar: 
-   accuracy - 0.574468 / 0.574468
-   weights - 0
-mediastinum: 
    accuracy - 0.382979 / 0.382979
    weights - 0
+mediastinum: 
+   accuracy - 0.340426 / 0.340426
+   weights - 0
 abdominal: 
-   accuracy - 0.319149 / 0.319149
+   accuracy - 0.340426 / 0.340426
    weights - 0
 class: 
-   accuracy - 0.489362 / 0.489362
+   accuracy - 0.425532 / 0.425532
    weights - 0
 age: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.446809 / 0.531915
+   weights - -0.0851064
 sex: 
    accuracy - 0.212766 / 0.212766
    weights - 0
@@ -143,65 +143,65 @@ histologic.type:
    accuracy - 0.340426 / 0.340426
    weights - 0
 degree.of.diffe: 
-   accuracy - 0.191489 / 0.191489
+   accuracy - 0.531915 / 0.531915
    weights - 0
 bone: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.382979 / 0.340426
+   weights - 0.0425532
 bone.marrow: 
    accuracy - 0.531915 / 0.531915
    weights - 0
 lung: 
-   accuracy - 0.510638 / 0.510638
-   weights - 0
+   accuracy - 0.340426 / 0.404255
+   weights - -0.0638298
 pleura: 
-   accuracy - 0.425532 / 0.425532
+   accuracy - 0.531915 / 0.531915
    weights - 0
 peritoneum: 
-   accuracy - 0.191489 / 0.191489
-   weights - 0
+   accuracy - 0.297872 / 0.255319
+   weights - 0.0425532
 liver: 
-   accuracy - 0.574468 / 0.574468
-   weights - 0
+   accuracy - 0.446809 / 0.510638
+   weights - -0.0638298
 brain: 
    accuracy - 0.340426 / 0.340426
    weights - 0
 skin: 
-   accuracy - 0.191489 / 0.191489
-   weights - 0
-neck: 
-   accuracy - 0.510638 / 0.510638
-   weights - 0
-supraclavicular: 
    accuracy - 0.340426 / 0.340426
    weights - 0
+neck: 
+   accuracy - 0.510638 / 0.468085
+   weights - 0.0425532
+supraclavicular: 
+   accuracy - 0.425532 / 0.382979
+   weights - 0.0425532
 axillar: 
-   accuracy - 0.446809 / 0.446809
-   weights - 0
+   accuracy - 0.446809 / 0.382979
+   weights - 0.0638298
 mediastinum: 
    accuracy - 0.531915 / 0.531915
    weights - 0
 abdominal: 
-   accuracy - 0.361702 / 0.361702
-   weights - 0
+   accuracy - 0.361702 / 0.340426
+   weights - 0.0212766
 class: 
    accuracy - 0.531915 / 0.531915
    weights - 0
 Attributes final weights:
-age - 0
+age - 0.148936
 sex - 0
 histologic.type - 0
-degree.of.diffe - -0.0638298
-bone - -0.0425532
-bone.marrow - 0
-lung - 0
+degree.of.diffe - 0.170213
+bone - 0.148936
+bone.marrow - 0.0638298
+lung - -0.191489
 pleura - 0
 peritoneum - 0
-liver - 0
-brain - 0
-skin - 0
-neck - 0
-supraclavicular - 0
+liver - -0.0851064
+brain - -0.255319
+skin - -0.212766
+neck - -0.0851064
+supraclavicular - -0.0425532
 axillar - 0
 mediastinum - 0
 abdominal - 0

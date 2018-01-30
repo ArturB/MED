@@ -11,6 +11,8 @@ BorutaForest::~BorutaForest()
 {
 }
 
+
+//Zwraca dane z zrepliokwanymi kolumnami ka¿dego z atrybutów
 ParsedData<std::string>& BorutaForest::replicateDataAttr(ParsedData<std::string>& data) {
 
 	std::vector<DataHeader> headers = data.getHeaders();
@@ -28,6 +30,7 @@ ParsedData<std::string>& BorutaForest::replicateDataAttr(ParsedData<std::string>
 	return data;
 }
 
+//Wypisuje ostateczne wagi policzone dla ka¿dego z atrybutów
 void BorutaForest::printAttrsWeight(std::map<int, double> attrsWeight, std::vector<DataHeader> headers) {
 	std::cout << "Attributes final weights:" << std::endl;
 
@@ -36,6 +39,7 @@ void BorutaForest::printAttrsWeight(std::map<int, double> attrsWeight, std::vect
 	}
 }
 
+// Zwraca wagi atrybutów dla podanych danych i parameru decyzyjnego policzonych przy u¿yciu algorytmu Boruta
 std::map<int, double> BorutaForest::getAttrsWeight(ParsedData<std::string> data, int decisionAttr) {
 
 	int headerSize = data.getHeaders().size();

@@ -68,93 +68,93 @@ Koronacki, calculating tree 29/30
 Koronacki, calculating tree 30/30
 Attributes weights:
 name: 
-   accuracy - 0.228571 / 0.228571
-   weights - 0
+   accuracy - 0.285714 / 0.4
+   weights - -0.114286
  landmass: 
-   accuracy - 0.342857 / 0.342857
-   weights - 0
+   accuracy - 0.414286 / 0.142857
+   weights - 0.271429
  zone: 
-   accuracy - 0.414286 / 0.3
+   accuracy - 0.471429 / 0.357143
    weights - 0.114286
  area: 
-   accuracy - 0.357143 / 0.357143
+   accuracy - 0.428571 / 0.428571
    weights - 0
  population: 
-   accuracy - 0.385714 / 0.385714
-   weights - 0
- languagem religion: 
-   accuracy - 0.2 / 0.2
-   weights - 0
+   accuracy - 0.471429 / 0.4
+   weights - 0.0714286
+ languagem: 
+   accuracy - 0.342857 / 0.357143
+   weights - -0.0142857
+ religion: 
+   accuracy - 0.328571 / 0.257143
+   weights - 0.0714286
  bars: 
-   accuracy - 0.357143 / 0.357143
+   accuracy - 0.428571 / 0.428571
    weights - 0
  stripes: 
-   accuracy - 0.342857 / 0.342857
-   weights - 0
+   accuracy - 0.428571 / 0.314286
+   weights - 0.114286
  colours: 
-   accuracy - 0.4 / 0.4
-   weights - 0
- red: 
-   accuracy - 0.442857 / 0.442857
-   weights - 0
- green: 
-   accuracy - 0.4 / 0.442857
+   accuracy - 0.428571 / 0.471429
    weights - -0.0428571
+ red: 
+   accuracy - 0.342857 / 0.442857
+   weights - -0.1
+ green: 
+   accuracy - 0.271429 / 0.271429
+   weights - 0
  blue: 
-   accuracy - 0.4 / 0.4
-   weights - 0
+   accuracy - 0.357143 / 0.471429
+   weights - -0.114286
  gold: 
-   accuracy - 0.357143 / 0.357143
-   weights - 0
+   accuracy - 0.242857 / 0.314286
+   weights - -0.0714286
  white: 
-   accuracy - 0.357143 / 0.357143
+   accuracy - 0.257143 / 0.257143
    weights - 0
  black: 
-   accuracy - 0.471429 / 0.471429
-   weights - 0
+   accuracy - 0.357143 / 0.342857
+   weights - 0.0142857
  orange: 
-   accuracy - 0.428571 / 0.428571
-   weights - 0
+   accuracy - 0.342857 / 0.314286
+   weights - 0.0285714
  mainhue: 
-   accuracy - 0.471429 / 0.471429
-   weights - 0
+   accuracy - 0.414286 / 0.342857
+   weights - 0.0714286
  circles: 
-   accuracy - 0.342857 / 0.342857
-   weights - 0
+   accuracy - 0.328571 / 0.471429
+   weights - -0.142857
  crosses: 
-   accuracy - 0.328571 / 0.328571
-   weights - 0
+   accuracy - 0.385714 / 0.342857
+   weights - 0.0428571
  saltires: 
-   accuracy - 0.4 / 0.4
-   weights - 0
+   accuracy - 0.328571 / 0.442857
+   weights - -0.114286
  quarters: 
-   accuracy - 0.471429 / 0.471429
+   accuracy - 0.428571 / 0.428571
    weights - 0
  sunstars: 
-   accuracy - 0.428571 / 0.428571
-   weights - 0
+   accuracy - 0.314286 / 0.557143
+   weights - -0.242857
  crescent: 
+   accuracy - 0.5 / 0.442857
+   weights - 0.0571429
+ triangle: 
    accuracy - 0.457143 / 0.457143
    weights - 0
- triangle: 
-   accuracy - 0.242857 / 0.242857
-   weights - 0
  icon: 
-   accuracy - 0.285714 / 0.285714
-   weights - 0
- animate: 
-   accuracy - 0.5 / 0.5
-   weights - 0
- text: 
-   accuracy - 0.557143 / 0.557143
-   weights - 0
- topleft: 
    accuracy - 0.328571 / 0.328571
    weights - 0
+ animate: 
+   accuracy - 0.385714 / 0.4
+   weights - -0.0142857
+ text: 
+   accuracy - 0.271429 / 0.2
+   weights - 0.0714286
+ topleft: 
+   accuracy - 0.428571 / 0.571429
+   weights - -0.142857
  botright: 
-   accuracy - 0.614286 / 0.614286
-   weights - 0
-: 
-   accuracy - 0.142857 / 0.142857
-   weights - 0
+   accuracy - 0.142857 / 0.242857
+   weights - -0.1
 ------------ Finished ------------

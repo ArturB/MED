@@ -9,6 +9,7 @@ Parser::Parser() {
 Parser::~Parser() {
 }
 
+// Pobiera z pliku informacje o rekordach - nazwa i typ
 std::vector<DataHeader> Parser::getHeaderLines(std::istream& str)
 {
 	std::vector<DataHeader> headers;
@@ -41,6 +42,7 @@ std::vector<DataHeader> Parser::getHeaderLines(std::istream& str)
 	return headers;
 }
 
+// Pobiera kolejne dane z wiersza (odzielone ",")
 std::pair<bool, std::vector<std::string>> Parser::getNextLineAndSplitIntoTokens(std::istream& str)
 {
 	std::pair<bool, std::vector<std::string>> nextLine;
@@ -67,6 +69,8 @@ std::pair<bool, std::vector<std::string>> Parser::getNextLineAndSplitIntoTokens(
 	return nextLine;
 }
 
+
+// Pobiera dane z pliku (nag³ówki i dane) i zwraca je jako obiekt ParsedData
 ParsedData<std::string> Parser::loadData(std::string file) {
 
 	std::vector< std::vector<std::string> > result;
@@ -91,7 +95,7 @@ ParsedData<std::string> Parser::loadData(std::string file) {
 	return data;
 }
 
-
+// Zwraca zparsowane dane z pliku o podanej nazwie 
 ParsedData<std::string> Parser::parseData(std::string fileName) {
 
 	std::cout << "Loading & Parsing: " << fileName << std::endl;

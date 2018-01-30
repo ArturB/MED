@@ -27,6 +27,7 @@ void startBorutaAlgorithm(ParsedData<std::string>& data, int decisionAttr) {
 	borutaForest.getAttrsWeight(data, decisionAttr);
 }
 
+// Wypisuje odpowiednie informacje
 void runUserTextInterface(std::string filename, int decision_attr, int algorithmNr) {
 	std::cout << "           ------------ START ------------" << std::endl;
 	std::cout << "------------ Koronacki / Boruta Algorithm ------------" << std::endl;
@@ -45,6 +46,7 @@ int main(int argc, char** argv) {
 	int decision_attr;
 	int algorithmNr;
 
+	// Jezeli brak parametrów wejœciowych ustawianie ich na domyœlne wertoœci
 	if (argc < 4) {
 		filename = "adult.txt";
 		decision_attr = 1;
@@ -55,13 +57,6 @@ int main(int argc, char** argv) {
 		decision_attr = strtol(argv[2], NULL, 10);
 		algorithmNr = strtol(argv[3], NULL, 10);
 	}
-
-	
-	/*
-	filename = "adult.txt";
-	decision_attr = 1;
-	algorithmNr = 1;
-	*/
 
 	runUserTextInterface(filename, decision_attr, algorithmNr);
 
