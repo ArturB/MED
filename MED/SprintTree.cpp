@@ -27,6 +27,10 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 	decision_attr = decision_attr_;
 
 	clear_subset_vals(data, set_);
+	for (int i = 0; i < set_.size(); ++i) {
+		subset_1_attr_vals[data.getElem(set_[i], decision_attr)] += 1;
+		subset_2_attr_vals[data.getElem(set_[i], decision_attr)] += 1;
+	}
 
 	double gini0 = gini(data, set_, set_);
 
