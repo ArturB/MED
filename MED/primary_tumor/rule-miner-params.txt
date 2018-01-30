@@ -1,0 +1,4 @@
+minSupport = 0.05
+cp = 0
+growthThreshold = 3.0
+rawData = 1

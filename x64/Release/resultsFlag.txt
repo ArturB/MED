@@ -1,0 +1,160 @@
+           ------------ START ------------
+------------ Koronacki / Boruta Algorithm ------------
+Loading & Parsing: flag.txt
+Data size: 194
+Decision attribute:  zone
+-----Koronacki algorithm-----
+Trees with normal columns
+Koronacki, calculating tree 1/30
+Koronacki, calculating tree 2/30
+Koronacki, calculating tree 3/30
+Koronacki, calculating tree 4/30
+Koronacki, calculating tree 5/30
+Koronacki, calculating tree 6/30
+Koronacki, calculating tree 7/30
+Koronacki, calculating tree 8/30
+Koronacki, calculating tree 9/30
+Koronacki, calculating tree 10/30
+Koronacki, calculating tree 11/30
+Koronacki, calculating tree 12/30
+Koronacki, calculating tree 13/30
+Koronacki, calculating tree 14/30
+Koronacki, calculating tree 15/30
+Koronacki, calculating tree 16/30
+Koronacki, calculating tree 17/30
+Koronacki, calculating tree 18/30
+Koronacki, calculating tree 19/30
+Koronacki, calculating tree 20/30
+Koronacki, calculating tree 21/30
+Koronacki, calculating tree 22/30
+Koronacki, calculating tree 23/30
+Koronacki, calculating tree 24/30
+Koronacki, calculating tree 25/30
+Koronacki, calculating tree 26/30
+Koronacki, calculating tree 27/30
+Koronacki, calculating tree 28/30
+Koronacki, calculating tree 29/30
+Koronacki, calculating tree 30/30
+Trees with permuted columns
+Koronacki, calculating tree 1/30
+Koronacki, calculating tree 2/30
+Koronacki, calculating tree 3/30
+Koronacki, calculating tree 4/30
+Koronacki, calculating tree 5/30
+Koronacki, calculating tree 6/30
+Koronacki, calculating tree 7/30
+Koronacki, calculating tree 8/30
+Koronacki, calculating tree 9/30
+Koronacki, calculating tree 10/30
+Koronacki, calculating tree 11/30
+Koronacki, calculating tree 12/30
+Koronacki, calculating tree 13/30
+Koronacki, calculating tree 14/30
+Koronacki, calculating tree 15/30
+Koronacki, calculating tree 16/30
+Koronacki, calculating tree 17/30
+Koronacki, calculating tree 18/30
+Koronacki, calculating tree 19/30
+Koronacki, calculating tree 20/30
+Koronacki, calculating tree 21/30
+Koronacki, calculating tree 22/30
+Koronacki, calculating tree 23/30
+Koronacki, calculating tree 24/30
+Koronacki, calculating tree 25/30
+Koronacki, calculating tree 26/30
+Koronacki, calculating tree 27/30
+Koronacki, calculating tree 28/30
+Koronacki, calculating tree 29/30
+Koronacki, calculating tree 30/30
+Attributes weights:
+name: 
+   accuracy - 0.228571 / 0.228571
+   weights - 0
+ landmass: 
+   accuracy - 0.342857 / 0.342857
+   weights - 0
+ zone: 
+   accuracy - 0.414286 / 0.3
+   weights - 0.114286
+ area: 
+   accuracy - 0.357143 / 0.357143
+   weights - 0
+ population: 
+   accuracy - 0.385714 / 0.385714
+   weights - 0
+ languagem religion: 
+   accuracy - 0.2 / 0.2
+   weights - 0
+ bars: 
+   accuracy - 0.357143 / 0.357143
+   weights - 0
+ stripes: 
+   accuracy - 0.342857 / 0.342857
+   weights - 0
+ colours: 
+   accuracy - 0.4 / 0.4
+   weights - 0
+ red: 
+   accuracy - 0.442857 / 0.442857
+   weights - 0
+ green: 
+   accuracy - 0.4 / 0.442857
+   weights - -0.0428571
+ blue: 
+   accuracy - 0.4 / 0.4
+   weights - 0
+ gold: 
+   accuracy - 0.357143 / 0.357143
+   weights - 0
+ white: 
+   accuracy - 0.357143 / 0.357143
+   weights - 0
+ black: 
+   accuracy - 0.471429 / 0.471429
+   weights - 0
+ orange: 
+   accuracy - 0.428571 / 0.428571
+   weights - 0
+ mainhue: 
+   accuracy - 0.471429 / 0.471429
+   weights - 0
+ circles: 
+   accuracy - 0.342857 / 0.342857
+   weights - 0
+ crosses: 
+   accuracy - 0.328571 / 0.328571
+   weights - 0
+ saltires: 
+   accuracy - 0.4 / 0.4
+   weights - 0
+ quarters: 
+   accuracy - 0.471429 / 0.471429
+   weights - 0
+ sunstars: 
+   accuracy - 0.428571 / 0.428571
+   weights - 0
+ crescent: 
+   accuracy - 0.457143 / 0.457143
+   weights - 0
+ triangle: 
+   accuracy - 0.242857 / 0.242857
+   weights - 0
+ icon: 
+   accuracy - 0.285714 / 0.285714
+   weights - 0
+ animate: 
+   accuracy - 0.5 / 0.5
+   weights - 0
+ text: 
+   accuracy - 0.557143 / 0.557143
+   weights - 0
+ topleft: 
+   accuracy - 0.328571 / 0.328571
+   weights - 0
+ botright: 
+   accuracy - 0.614286 / 0.614286
+   weights - 0
+: 
+   accuracy - 0.142857 / 0.142857
+   weights - 0
+------------ Finished ------------
