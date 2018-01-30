@@ -2,7 +2,7 @@
 
 #include <string>
 #include <numeric>
-#include <map>
+#include <unordered_map>
 #include "ParsedData.h"
 #include "SprintPartition.h"
 
@@ -11,10 +11,15 @@ class SprintTree
 {
 private:
 	int decision_attr;
+	std::unordered_map<std::string, int> subset_1_attr_vals;
+	std::unordered_map<std::string, int> subset_2_attr_vals;
 	std::string decision_class;
 	SprintPartition decision;
 	SprintTree* Left;
 	SprintTree* Right;
+
+	void clear_subset_vals(ParsedData<std::string>&, std::vector<int>);
+
 	//void generateTree(ParsedData<std::string>& data, std::vector<int>& set, int decision_attr_, double gini_thr);
 	
 

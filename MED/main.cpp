@@ -45,9 +45,18 @@ int main(int argc, char** argv) {
 	int decision_attr;
 	int algorithmNr;
 
-	filename = argv[1];
-	decision_attr = strtol(argv[2], NULL, 10);
-	algorithmNr = strtol(argv[3], NULL, 10);
+	if (argc < 4) {
+		filename = "adult.txt";
+		decision_attr = 1;
+		algorithmNr = 1;
+	}
+	else {
+		filename = argv[1];
+		decision_attr = strtol(argv[2], NULL, 10);
+		algorithmNr = strtol(argv[3], NULL, 10);
+	}
+
+	
 	/*
 	filename = "adult.txt";
 	decision_attr = 1;

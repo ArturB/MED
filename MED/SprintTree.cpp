@@ -16,8 +16,17 @@ SprintTree SprintTree::create(ParsedData<std::string>& data, int decision_attr_,
 	return SprintTree(data, set, decision_attr_, gini_thr);
 }
 
+void SprintTree::clear_subset_vals(ParsedData<std::string>& data, std::vector<int> set_) {
+	for (int i = 0; i < set_.size(); ++i) {
+		subset_1_attr_vals[data.getElem(set_[i], decision_attr)] = 0;
+		subset_2_attr_vals[data.getElem(set_[i], decision_attr)] = 0;
+	}
+}
+
 SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int decision_attr_, double gini_thr) {
 	decision_attr = decision_attr_;
+
+	clear_subset_vals(data, set_);
 
 	double gini0 = gini(data, set_, set_);
 
@@ -39,29 +48,41 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 		SprintPartition best_decision;
 		best_decision.gini = 1.9;
 		SprintPartition part;
-		for (int i = 1; i < data.getHeaders().size(); ++i) {
-			if (i != decision_attr) {
-				//std::cout << "Checking column " << i << std::endl;
-				if (data.getHeaders()[i].type == DISCRETE) {
-					//std::cout << "Checking discrete column" << std::endl;
-					part = best_attr_discrete_partition(data, set_, i);
-					if (part.gini < best_decision.gini) {
-						best_decision = part;
-						best_decision.part_col = i;
+		int checked_attr_num = std::floor(std::sqrt(data.getHeaders().size()));
+		std::vector<int> checked_attrs;
+		for (int i = 0; i < checked_attr_num; ++i) {
+			int val;
+			bool val_exists;
+			do {
+				val = std::rand() % checked_attr_num;
+				val_exists = false;
+				for (int j = 0; i < checked_attrs.size(); ++j) {
+					if (checked_attrs[j] == val) {
+						val_exists = true;
+						break;
 					}
 				}
-				if (data.getHeaders()[i].type == NUMERIC) {
-					//sort numeric data
-					/*std::sort(data.getData().begin(), data.getData().end(),
-						[i](const std::vector<std::string>& a, const std::vector<std::string>& b) {
-						return std::stoi(a[i]) > std::stoi(b[i]);
-					});*/
-					//std::cout << "Checking numeric column" << std::endl;
-					//generate best part
-					part = best_attr_numeric_partition(data, set_, i);
+			} while (val_exists);
+			checked_attrs.push_back(val);
+		}
+		for (int i = 1; i < checked_attr_num; ++i) {
+			int h = checked_attrs[i];
+			if (h != decision_attr) {
+				//std::cout << "Checking column " << i << std::endl;
+				if (data.getHeaders()[h].type == DISCRETE) {
+					//std::cout << "Checking discrete column" << std::endl;
+					part = best_attr_discrete_partition(data, set_, h);
 					if (part.gini < best_decision.gini) {
 						best_decision = part;
-						best_decision.part_col = i;
+						best_decision.part_col = h;
+					}
+				}
+				if (data.getHeaders()[h].type == NUMERIC) {
+					//generate best part
+					part = best_attr_numeric_partition(data, set_, h);
+					if (part.gini < best_decision.gini) {
+						best_decision = part;
+						best_decision.part_col = h;
 					}
 				}
 			}
@@ -93,7 +114,7 @@ SprintTree::~SprintTree()
 }
 
 std::string SprintTree::biggest_class(ParsedData<std::string>& data, std::vector<int> set) {
-	std::map<std::string, int> sizes = std::map<std::string, int>();
+	std::unordered_map<std::string, int> sizes = std::unordered_map<std::string, int>();
 	for (int i = 0; i < set.size(); ++i) {
 		sizes[data.getElem(set[i],decision_attr)] += 1;
 	}
@@ -110,30 +131,56 @@ std::string SprintTree::biggest_class(ParsedData<std::string>& data, std::vector
 
 //assumes that data are sorted by column col_num
 SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>& data, std::vector<int>& set, int col_num) {
+	ParsedData<std::string> sorted;
+	sorted.setHeaders(data.getHeaders());
+	for (int i = 0; i < set.size(); ++i) {
+		sorted.getData().push_back(data.getRow(set[i]));
+	}
+
+	std::sort(sorted.getData().begin(), sorted.getData().end(),
+		[col_num](const std::vector<std::string>& a, const std::vector<std::string>& b) {
+		return std::stoi(a[col_num]) > std::stoi(b[col_num]);
+	});
+
 	std::vector<int> set1 = std::vector<int>();
 	std::vector<int> set2 = std::vector<int>();
-	set2 = set;
+	for (int i = 0; i < set.size(); ++i) {
+		set2.push_back(i);
+	}
 	
 	set1.push_back(set2.back());
 	set2.pop_back();
 
-	double best_thr = std::stoi(data.getElem(set1.back(),col_num));
-	double best_gini = gini(data, set1, set2);
+	double best_thr = std::stoi(sorted.getElem(set1.back(),col_num));
+
+	clear_subset_vals(data, set);
+	for (int i = 0; i < set1.size(); ++i) {
+		subset_1_attr_vals[data.getElem(set1[i], decision_attr)] += 1;
+	}
+	for (int i = 0; i < set2.size(); ++i) {
+		subset_2_attr_vals[data.getElem(set2[i], decision_attr)] += 1;
+	}
+
+	double best_gini = gini(sorted, set1, set2);
 
 	for (int i = 0; i < set.size() - 1; ++i) {
 		
-		if (data.getElem(set1.back(),col_num) == data.getElem(set2.back(),col_num)) {
+		if (sorted.getElem(set1.back(),col_num) == sorted.getElem(set2.back(),col_num)) {
 			set1.push_back(set2.back());
 			set2.pop_back();
+			subset_1_attr_vals[data.getElem(set1.back(), decision_attr)] += 1;
+			subset_2_attr_vals[data.getElem(set1.back(), decision_attr)] -= 1;
 		}
 		else {
-			double gini0 = gini(data, set1, set2);
+			double gini0 = gini(sorted, set1, set2);
 			if (gini0 < best_gini) {
 				best_gini = gini0;
-				best_thr = std::stoi(data.getElem(set1.back(),col_num));
+				best_thr = std::stoi(sorted.getElem(set1.back(),col_num));
 			}
 			set1.push_back(set2.back());
 			set2.pop_back();
+			subset_1_attr_vals[data.getElem(set1.back(), decision_attr)] += 1;
+			subset_2_attr_vals[data.getElem(set1.back(), decision_attr)] -= 1;
 		}
 	}
 
@@ -146,7 +193,7 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 	set2.clear();
 
 	for (int j = 0; j < set.size(); ++j) {
-		if (std::stoi(data.getData()[j][col_num]) <= best_thr) {
+		if (std::stoi(data.getData()[set[j]][col_num]) <= best_thr) {
 			set1.push_back(set[j]);
 		}
 		else {
@@ -185,6 +232,15 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 				set2.push_back(j);
 			}
 		}
+
+		clear_subset_vals(data, set);
+		for (int i = 0; i < set1.size(); ++i) {
+			subset_1_attr_vals[data.getElem(set1[i], decision_attr)] += 1;
+		}
+		for (int i = 0; i < set2.size(); ++i) {
+			subset_2_attr_vals[data.getElem(set2[i], decision_attr)] += 1;
+		}
+
 		double gini0 = gini(data, set1, set2);
 		if (gini0 < best_gini) {
 			best_gini = gini0;
@@ -218,21 +274,13 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 }
 
 double SprintTree::gini(ParsedData<std::string>& data, std::vector<int>& set1, std::vector<int>& set2) {
-	std::map<std::string, int> sizes1 = std::map<std::string, int>();
-	std::map<std::string, int> sizes2 = std::map<std::string, int>();
-	for (int i = 0; i < set1.size(); ++i) {
-		sizes1[data.getElem(set1[i],decision_attr)] += 1;
-	}
-	for (int i = 0; i < set2.size(); ++i) {
-		sizes2[data.getElem(set2[i],decision_attr)] += 1;
-	}
 	double sizes1sum = set1.size();
 	double sizes2sum = set2.size();
 	double gini1 = 0; double gini2 = 0;
-	for (auto i = sizes1.begin(); i != sizes1.end(); ++i) {
+	for (auto i = subset_1_attr_vals.begin(); i != subset_1_attr_vals.end(); ++i) {
 		gini1 += std::pow(i->second / sizes1sum, 2);
 	}
-	for (auto i = sizes2.begin(); i != sizes2.end(); ++i) {
+	for (auto i = subset_2_attr_vals.begin(); i != subset_2_attr_vals.end(); ++i) {
 		gini2 += std::pow(i->second / sizes2sum, 2);
 	}
 	gini1 = 1 - gini1;
