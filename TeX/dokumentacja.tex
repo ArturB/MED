@@ -1,0 +1,180 @@
+\documentclass{article}
+
+%% Language and font encodings
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage{hyperref}
+\usepackage{listings}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{Dokumentacja MED 17Z - wybór atrybutów}
+\author{Artur M. Brodzki, Mateusz Orzoł}
+
+\begin{document}
+\maketitle
+
+\section{Wstęp} \label{sec:intro}
+Zadaniem jest znalezienie na zbiorach danych atrybutów mających największy wpływ na wynik zadania klasyfikacji. Program ma działać w trybie wsadowym, z linii komend i mieć możliwość załadowania każdego z trzech zbiorów danych z repozytorium UCI:
+\begin{itemize}
+	\item Adults: \url{:http://archive.ics.uci.edu/ml/datasets/Adult}
+	\item Flags: \url{ http://archive.ics.uci.edu/ml/datasets/Flags}
+	\item PrimaryTumor: \url{ http://archive.ics.uci.edu/ml/datasets/Primary+Tumor}
+\end{itemize}
+
+Dla zadanego zbioru danych, program ma wypisać wagę każdego atrybutu w zbiorze - im większa waga, tym lepiej używać danego atrybutu do klasyfikacji. Program ma mieć opcję uruchamiania pozwalającą wybrać jeden z dwóch algorytmów działania:
+\begin{itemize}
+	\item Algorytm prof. Koronackiego
+	\item Algorytm "Boruta"
+\end{itemize}
+Algorytmy te opisuję w sekcji \ref{sec:algs}
+
+\section{Opis wykorzystywanych algorytmów} \label{sec:algs}
+Wybór optymalnego atrybutu w ogólności realizuje się poprzez zbudowanie lasu losowego zawierającego wiele drzew. Cały zbiór danych dzieli się na podzbiory i tworzy osobne drzewo dla każdego podzbioru. Każde drzewo z osobna tworzone jest algorytmem SPRINT, opisanym szczegółowo na notatkach z wykładu o klasyfikacji, w wersji z wykorzystaniem współczynnika Giniego. Z kolei sposób wyznaczania najlepszych atrybutów realizowany jest inaczej w zależności od algorytmu.
+
+\subsection{Oznaczenia} \label{sec:symbols}
+
+Oznaczmy zbiór rekordów pewnego zbioru danych przez $D$, a zbiór atrybutów tego zbioru przez $A$. Niech całkowita liczba rekordów w zbiorze danych wynosi $\left|D\right|$, a liczba atrybutów w tym zbiorze wynosi $\left|A\right|$. 
+
+\subsection{Tworzenie drzewa decyzyjnego losowego algorytmem SPRINT}
+\begin{enumerate}
+	\item Inicjujemy algorytm ze zbiorem danych $D$ oraz progiem na współczynnik Giniego $gthr$. 
+	\item Losujemy $n = \lfloor\sqrt{\left|A\right|}\rfloor$ atrybutów zbioru spośród $A$. Wylosowane atrybuty tworzą podzbiór $A_s$. 
+	\item Dla każdego $a \in A_s$:
+	\begin{enumerate}
+		\item Jeżeli $a$ jest atrybutem typu dyskretnego:
+		\begin{enumerate}
+			\item Tworzymy listę $vals(a)$ wszystkich wartości atrybutu $a$. 
+			\item Dla każdej kombinacji bez powtórzeń $c = \{ a_i, a_j, \ldots, a_m \}$ elementów zbioru $vals(a)$ tworzymy podzbiór $D_c = \{ x \in D: x(a) \in c \}$ rekordów o wartości atrybutu $a$ należącej do kombinacji $c$ oraz podzbiór $D_n = \{ x \in D: x(a) \notin c \}$ rekordów o wartości atrybutu $a$ nienależącej do kombinacji $c$. 
+		\end{enumerate}
+		\item Jeżeli $a$ jest atrybutem typu numerycznego:
+		\begin{enumerate}
+			\item Sortujemy zbiór $D$ według wartości atrybutu $a$ w porządku niemalejącym. 
+			\item Kolejne wartości $v$ atrybutu $a$ przyjmujemy jako progi odcięcia i tworzymy podział zbioru $D$ na dwa podzbiory: $D_c = \{ x \in D: x(a) \le v \}$ oraz $D_n = \{ x \in D: x(a) > v \}$. 
+		\end{enumerate}
+		\item Dla każdego podziału $\{D_c, D_n\}$ wyznaczamy wartość współczynnika Giniego $gini(D_c, D_n)$ zbioru rekordów po podziale. 
+		\item Wybieramy podział $p_{max}(a)$, który minimalizuje współczynnik Giniego na atrybucie $a$. 
+	\end{enumerate}
+	\item Spośród najlepszych podziałów dla wszystkich atrybutów \\
+	$\{ p_{max}(a_1), p_{max}(a_2), \ldots, p_{max}(a_n) \}$ 
+	wybieramy podział globalnie najlepszy $p_{max} = \{D_c, D_n\}$ i zapamiętujemy go w tworzonym węźle drzewa. Zapamiętujemy również warunek podziału. 
+	\item Lewe i prawe poddrzewo tworzymy rekurencyjnie na zbiorach odpowiednio $D_c$ i $D_n$. 
+	\item Rekursja kończy się, gdy współczynnik Giniego na zbiorze danych w węźle jest mniejszy od progu $gthr$ lub gdy w zbiorze pozostał tylko jeden element. 
+\end{enumerate}
+
+\subsection{Algorytm prof. Koronackiego} \label{sec:koronacki}
+\begin{enumerate}
+	\item Podział na podzbiory: decydujemy się na $\left|A\right|$ drzew w lesie. Do każdego	drzewa przydzielamy $\left|T\right| / \left|A\right|$ rekordów wybieranych drogą losowania ze zwracaniem (czyli rekordy dla jednego drzewa mogą się powtarzać). Ponieważ rekordy się powtarzają, to niektóre nie zostaną wybrane do żadnego drzewa,
+	za to użyjemy ich do testowania skuteczności nauczonych drzew. 
+	\item Każde drzewo uczymy z wykorzystaniem przydzielonych mu rekordów oraz
+	testujemy za pomocą (tego samego dla każdego drzewa) zbioru rekordów
+	testujących. Zapamiętujemy dokładność (ang. \emph{accuracy}) klasyfikacji drzewa
+	$i$ : $\varphi(i)$. 
+	\item Na każdym z $\left|A\right|$ drzew wybieramy jeden z $A$ atrybutów. Wartości tego atrybutu na zbiorze rekordów uczących są losowo permutowane i na tak zmienionym zbiorze ponownie uczymy drzewo i wykonujemy testowanie.	Zapamiętujemy nową (niższą, bo zbiór uczący został zmieniony) dokładność klasyfikacji $\varphi'(i)$. 
+	\item Różnica $w(i) = \varphi(i) − \varphi'(i)$ oznacza wagę danego atrybutu.
+\end{enumerate}
+
+\subsection{Algorytm \emph{Boruta}}
+\begin{enumerate}
+	\item Dokonujemy podziału na podzbiory identycznie jak w algorytmie prof. Koronackiego. 
+	\item Replikacja: wszystkie kolumny-atrybuty w danych sa replikowane. W	nowym zbiorze danych mamy więc $2\left|A\right|$ atrybutów: każdy atrybut $a_i$ ma swoją kopię $a'_i$. 
+	\item Kopie atrybutów mają losowo permutowane wartości. 
+	\item Następnie obliczamy wagę każdego atrybutu $w(i) = \varphi(i) − \varphi'(i)$ (replikowanych i niereplikowanych) tak samo jak w algorytmie Koronackiego. 
+	\item  Jako wagę atrybutu $i$ przyjmujemy różnicę pomiędzy wagą Koronackiego jego zwykłej wersji $w(i)$ a wagą jego zreplikowanej wersji $w'(i)$.
+\end{enumerate}
+
+\section{Podział zadań pomiędzy członków zespołu}
+
+Artur Brodzki:
+\begin{enumerate}
+	\item Implementacja algorytmu SPRINT w wersji dostosowanej do tworzenia lasów losowych
+	\item Testowanie oraz pisanie dokumentacji końcowej projektu
+\end{enumerate}
+Mateusz Orzoł:
+\begin{enumerate}
+	\item Implementacja algorytmów prof. Koronackiego oraz algorytmu \emph{Boruta}
+	\item Implementacja modułu parsowania plików z danymi z formacie CSV
+	\item Interfejs CLI programu - parsowanie parametrów linii komend
+\end{enumerate}
+
+\section{Obsługa programu}
+
+Program napisany został jako projekt programu Visual Studio 2015. Kod źródłowy programu znajduje się na repozytorium GitHuba pod adresem \url{https://github.com/ArturB/MED} Do jego skompilowania wymagany jest pakiet Windows SDK w wersji 10.0.1.14 //TODO oraz kompilator MSVC w wersji 140. Prekompilowany plik wykonywalny MED.exe na architekturę x86-64 znajduje się w podkatalogu x64/Release. 
+
+Program uruchamia się, podając kilka parametrów:
+
+\begin{lstlisting}
+	MED.exe <datafile> <decision-attr> <algorithm>
+\end{lstlisting}
+
+\begin{itemize}
+	\item \emph{datafile}: nazwa pliku z danymi. W podkatalogu x64/Release znajdują się już trzy pliki z danymi: 
+	\begin{itemize}
+		\item adult.txt
+		\item flag.txt
+		\item tumor.txt
+	\end{itemize}
+	Umożliwia to bezpośrednie testowanie programu na trzech wymienionych w sekcji \ref{sec:intro} zbiorach danych. 
+	\item \emph{decision-attr}: indeks atrybutu, który określa klasę rekordu. Atrybuty numerowane są od 0. Atrybut określający klasę rekordu musi być atrybutem typu dyskretnego. 
+	\item \emph{algorithm}: algorytm tworzenia lasu losowego. Dla $\emph{algorithm} = 1$ wykonywany jest algorytm prof. Koronackiego, a dla $\emph{algorithm} = 2$ wykonywany jest algorytm \emph{Boruta}. 
+\end{itemize}
+
+W przypadku uruchomienia programu bez parametrów, przyjmowane są domyślne wartości:
+
+\begin{lstlisting}
+	MED.exe adult.txt 1 1
+\end{lstlisting}
+
+Zatem klasyfikacja wykonywana jest na zbiorze Adult-UCI, z atrybutem \emph{workclass} jako klasą rekordu, metodą prof. Koronackiego. 
+
+Wyniki działania programu wypisywane są na standardowe wyjście, można je przekierować do pliku operatorem >. 
+
+\section{Testy}
+
+\subsection{Wydajność}
+
+Czas działania programu zależy oczywiście od rozmiaru analizowanych danych oraz od wyboru algorytmu tworzenia lasu losowego. Przykładowe czasy wykonania programu na zbiorze Adults-UCI, na komputerze klasy PC z procesorem Intel i5-3570 3,4GHz znajdują się w tabeli \ref{tab:times}. 
+
+\begin{table} 
+	\centering
+	\begin{tabular}{|c|c|} \hline
+		Koronacki & Boruta \\ 
+		13.959 s & 26.731 s \\ 
+		12.456 & 25.768 \\ 
+		14.67 & 23.67 \\ 
+		14.01 & 24.567 \\ 
+		14.563 & 24.987 \\ 
+		13.959 s & 26.731 s \\ 
+		12.456 & 25.768 \\ 
+		14.67 & 23.67 \\ 
+		14.01 & 24.567 \\ 
+		14.563 & 24.987 \\ \hline
+	\end{tabular}
+\caption{Przykładowe czasy wykonania programu na zbiorze danych Adults.}
+\label{tab:times}
+\end{table}
+
+Przeciętny czas wykonania programu wynosi //TODO a odchyleniem standardowym //TODO, co - biorąc pod uwage rozmiar zbioru Adults wynoszący 30.000 //TODO rekordów wydaje się być zadowalającym wynikiem. Na uwagę zasługuje fakt, że algorytm \emph{Boruta} wykonuje się ok. dwukrotnie dłużej od algorytmu prof. Koronackiego - wynika to niewątpliwie z faktu, że algorytm \emph{Boruta} wymaga skopiowania wszystkich atrybutów na zbiorze danych - poza tym, algorytmy są do siebie bardzo podobne. 
+
+Oprócz samego tworzenia lasu losowego, w programie występuje pewien czynnik stały, związany z parsowaniem pliku CSV z danymi. 
+
+\subsection{Wyniki}
+
+Analiza porównawcza dostarczanych przez program wyników dla obu algorytmów okazuje się niekonkluzywna. Niezależnie od użytego algorytmu oraz zbioru danych, uzyskiwane skuteczności klasyfikacji są bardzo niskie i niewiele większe od losowych. Wynikać to może z faktu, że na każdym zbiorów wykonywane zadanie klasyfikacji jest raczej nieoczywiste:
+\begin{itemize}
+	\item Na zbiorze Adult, atrybutem decyzyjnym jest \emph{workclass}, czyli typ pracodawcy. Nie jest oczywiste, jak czynniki demograficzne miałyby wpływać na rodzaj pracodawcy, a na pewno zależność ta nie jest zbyt silna. 
+	\item Na zbiorze Flags atrybutem decyzyjnym jest \emph{landmass}, czyli kontynent, na którym znajduje się państwo. Należy podejrzewać, że przewidywanie kontynentu państwa na podstawie kolorów jego flagi jest zadaniem karkołomnym, o niewielkiej możliwej skuteczności, niezależnie od użytej metody. 
+	\item Na zbiorze Tumor //TODO
+\end{itemize}
+
+Biorąc pod uwagę powyższe, wszystkie atrybuty mają przyznane niewielkie wagi, niezależnie od użytego algorytmu. Wyciągnięcie jednoznacznych wniosków nt. różnic w wynikach pomiędzy algorytmami prof. Koronackiego i \emph{Boruta} nie jest możliwe. 
+
+//TODO
+
+
+
+\end{document}
