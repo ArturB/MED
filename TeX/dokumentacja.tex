@@ -63,7 +63,7 @@ Oznaczmy zbiór rekordów pewnego zbioru danych przez $D$, a zbiór atrybutów t
 	$\{ p_{max}(a_1), p_{max}(a_2), \ldots, p_{max}(a_n) \}$ 
 	wybieramy podział globalnie najlepszy $p_{max} = \{D_c, D_n\}$ i zapamiętujemy go w tworzonym węźle drzewa. Zapamiętujemy również warunek podziału. 
 	\item Lewe i prawe poddrzewo tworzymy rekurencyjnie na zbiorach odpowiednio $D_c$ i $D_n$. 
-	\item Rekursja kończy się, gdy współczynnik Giniego na zbiorze danych w węźle jest mniejszy od progu $gthr$ lub gdy w zbiorze pozostał tylko jeden element. 
+	\item Rekursja kończy się, gdy współczynnik Giniego na zbiorze danych w węźle jest mniejszy od progu $gthr$ lub gdy w zbiorze pozostał tylko jeden element. Liść jest również tworzony, gdy wszystkie atrybuty decyzyjne rekordów w zbiorze mają identyczne wartości, tzn. zbiór nie daje się podzielić na podzbiory - nawet, jeśli rekordy należą do różnych klas. Jako klasa zawarta w liściu przyjmowana jest klasa najliczniej występująca w zbiorze danych przypadających na liść. W przypadku, gdy kilka klas jest równolicznych, przyjmowana jest klasa występująca w zbiorze danych jako pierwsza. 
 \end{enumerate}
 
 \subsection{Algorytm prof. Koronackiego} \label{sec:koronacki}
