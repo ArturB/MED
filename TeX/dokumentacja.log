@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.11.7)  31 JAN 2018 10:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.11.7)  31 JAN 2018 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -699,7 +699,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
 Here is how much of TeX's memory you used:
  19993 strings out of 494910
  350593 string characters out of 6180156
- 403205 words of memory out of 5000000
+ 401668 words of memory out of 5000000
  22918 multiletter control sequences out of 15000+600000
  17500 words of font info for 42 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
@@ -720,10 +720,10 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on dokumentacja.pdf (6 pages, 156068 bytes).
+Output written on dokumentacja.pdf (6 pages, 156153 bytes).
 PDF statistics:
- 459 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
+ 460 PDF objects out of 1000 (max. 8388607)
+ 184 compressed objects within 2 object streams
  51 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
