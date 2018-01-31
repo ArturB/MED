@@ -63,7 +63,7 @@ Oznaczmy zbiór rekordów pewnego zbioru danych przez $D$, a zbiór atrybutów t
 	$\{ p_{max}(a_1), p_{max}(a_2), \ldots, p_{max}(a_n) \}$ 
 	wybieramy podział globalnie najlepszy $p_{max} = \{D_c, D_n\}$ i zapamiętujemy go w tworzonym węźle drzewa. Zapamiętujemy również warunek podziału. 
 	\item Lewe i prawe poddrzewo tworzymy rekurencyjnie na zbiorach odpowiednio $D_c$ i $D_n$. 
-	\item Rekursja kończy się, gdy współczynnik Giniego na zbiorze danych w węźle jest mniejszy od progu $gthr$ lub gdy w zbiorze pozostał tylko jeden element. 
+	\item Rekursja kończy się, gdy współczynnik Giniego na zbiorze danych w węźle jest mniejszy od progu $gthr$ lub gdy w zbiorze pozostał tylko jeden element. Liść jest również tworzony, gdy wszystkie atrybuty decyzyjne rekordów w zbiorze mają identyczne wartości, tzn. zbiór nie daje się podzielić na podzbiory - nawet, jeśli rekordy należą do różnych klas. Jako klasa zawarta w liściu przyjmowana jest klasa najliczniej występująca w zbiorze danych przypadających na liść. W przypadku, gdy kilka klas jest równolicznych, przyjmowana jest klasa występująca w zbiorze danych jako pierwsza. 
 \end{enumerate}
 
 \subsection{Algorytm prof. Koronackiego} \label{sec:koronacki}
@@ -103,7 +103,7 @@ Mateusz Orzoł:
 
 \section{Obsługa programu}
 
-Program napisany został jako projekt programu Visual Studio 2015. Kod źródłowy programu znajduje się na repozytorium GitHuba pod adresem \url{https://github.com/ArturB/MED} Do jego skompilowania wymagany jest pakiet Windows SDK w wersji 10.0.1.14 //TODO oraz kompilator MSVC w wersji 140. Prekompilowany plik wykonywalny MED.exe na architekturę x86-64 znajduje się w podkatalogu x64/Release. 
+Program napisany został jako projekt środowiska Visual Studio 2015. Kod źródłowy programu znajduje się na repozytorium GitHuba pod adresem \url{https://github.com/ArturB/MED} Do jego skompilowania wymagany jest pakiet Windows SDK w wersji 10.0.14393.0 oraz kompilator MSVC 2015 w wersji 140. Prekompilowany plik wykonywalny MED.exe na architekturę x86-64 znajduje się w podkatalogu x64/Release. Dostępny jest równiez intalator programu w formie archiwum ZIP, zawierający tylko plik wykonywalny oraz przykładowe zbiory danych: można go pobrać z repozytorium GitHuba w zakładce Releases: \url{https://github.com/ArturB/MED/releases/tag/1.0.2}. 
 
 Program uruchamia się, podając kilka parametrów:
 
@@ -143,38 +143,35 @@ Czas działania programu zależy oczywiście od rozmiaru analizowanych danych or
 	\centering
 	\begin{tabular}{|c|c|} \hline
 		Koronacki & Boruta \\ 
-		13.959 s & 26.731 s \\ 
-		12.456 & 25.768 \\ 
-		14.67 & 23.67 \\ 
-		14.01 & 24.567 \\ 
-		14.563 & 24.987 \\ 
-		13.959 s & 26.731 s \\ 
-		12.456 & 25.768 \\ 
-		14.67 & 23.67 \\ 
-		14.01 & 24.567 \\ 
-		14.563 & 24.987 \\ \hline
+		25.995 s & 37.659 s \\ 
+		25.505 & 34.928 \\ 
+		23.171 & 42.025 \\ 
+		22.417 & 33.551 \\ 
+		17.539 & 39.937 \\ 
+		21.763 s & 37.819 s \\ 
+		24.898 & 33.199 \\ 
+		21.67 & 29.482 \\ 
+		19.06 & 34.335 \\ 
+		28.045 & 41.076 \\ \hline
 	\end{tabular}
 \caption{Przykładowe czasy wykonania programu na zbiorze danych Adults.}
 \label{tab:times}
 \end{table}
 
-Przeciętny czas wykonania programu wynosi //TODO a odchyleniem standardowym //TODO, co - biorąc pod uwage rozmiar zbioru Adults wynoszący 30.000 //TODO rekordów wydaje się być zadowalającym wynikiem. Na uwagę zasługuje fakt, że algorytm \emph{Boruta} wykonuje się ok. dwukrotnie dłużej od algorytmu prof. Koronackiego - wynika to niewątpliwie z faktu, że algorytm \emph{Boruta} wymaga skopiowania wszystkich atrybutów na zbiorze danych - poza tym, algorytmy są do siebie bardzo podobne. 
-
-Oprócz samego tworzenia lasu losowego, w programie występuje pewien czynnik stały, związany z parsowaniem pliku CSV z danymi. 
+Przeciętny czas wykonania programu wynosi metodą prof. Koronackiego wynosi 23.11 sek, z odchyleniem standardowym 3.15 sek, natomiast metodą \emph{Boruta} wynosi 36.4 sek, z odchyleniem 3.77 sek. Na uwagę zasługuje fakt, że algorytm \emph{Boruta} wykonuje się ok. 1,57 razy dłużej od algorytmu prof. Koronackiego - wynika to niewątpliwie z faktu, że algorytm \emph{Boruta} wymaga skopiowania wszystkich atrybutów na zbiorze danych - poza tym, algorytmy są do siebie bardzo podobne. Co prawda liczba atrybutów z zbiorze danych jest podwajana, ale w algorytmie lasu losowego nie są analizowane wszystkie atrybutu tylko ich część równa $\lfloor\sqrt{\left|A\right|}\rfloor$. Dla 15 atrybutów wybieramy więc zawsze 3, a dla 30 - 5. Stosunek tych liczb 1.6 odpowiada niemal dokładnie róznicy wykonania algorytmu Koronackiego i \emph{Boruta} (1.57). Niewielka róznica wynika zapewne z faktu, że oprócz samego tworzenia lasu losowego, w programie występuje pewien czynnik stały, związany z parsowaniem pliku CSV z danymi. 
 
 \subsection{Wyniki}
 
-Analiza porównawcza dostarczanych przez program wyników dla obu algorytmów okazuje się niekonkluzywna. Niezależnie od użytego algorytmu oraz zbioru danych, uzyskiwane skuteczności klasyfikacji są bardzo niskie i niewiele większe od losowych. Wynikać to może z faktu, że na każdym zbiorów wykonywane zadanie klasyfikacji jest raczej nieoczywiste:
+Skuteczność algorytmu SPRINT wypada zadowalająco. Przeprowadzono następujące testy budowanych klasyfikatorów:
 \begin{itemize}
-	\item Na zbiorze Adult, atrybutem decyzyjnym jest \emph{workclass}, czyli typ pracodawcy. Nie jest oczywiste, jak czynniki demograficzne miałyby wpływać na rodzaj pracodawcy, a na pewno zależność ta nie jest zbyt silna. 
-	\item Na zbiorze Flags atrybutem decyzyjnym jest \emph{landmass}, czyli kontynent, na którym znajduje się państwo. Należy podejrzewać, że przewidywanie kontynentu państwa na podstawie kolorów jego flagi jest zadaniem karkołomnym, o niewielkiej możliwej skuteczności, niezależnie od użytej metody. 
-	\item Na zbiorze Tumor //TODO
+	\item Przewidywanie typu pracodawcy na zbiorze Adult: przeciętny współczynnik skuteczności (ang. \emph{accuracy}) dla stworzonego drzewa wynosił pomiędzy 0.6 a 0.8, choć rzadko pojawiały się też obserwacje odstające ze skutecznością 0.3 - 0.4. Skuteczność klasyfiatora losowego wynosiłaby 0.125. 
+	\item Przewidywanie kontynentu państwa na podstawie koloru flagi: skuteczność średnio wyniosła między 0.15 a 0.3, czyli tylko nieco więcej niż losowa 0.17. Wynika to jednak z niewielkiej liczności zbiorów uczączych dla drzew: tworząc 30-elementowy las losowy i mając 194 rekordy w zbiorze danych, na jedno drzewo przypada jedynie ok. 5-6 przykładów uczących. 
+	\item Przewidywanie typu nowotworu na podstawie jego umiejscowienia: skuteczność średnio wyniosła pomiędzy 0.3 a 0.6, przy 0.05 losowej (są aż 22 typy nowotworów). 
 \end{itemize}
 
-Biorąc pod uwagę powyższe, wszystkie atrybuty mają przyznane niewielkie wagi, niezależnie od użytego algorytmu. Wyciągnięcie jednoznacznych wniosków nt. różnic w wynikach pomiędzy algorytmami prof. Koronackiego i \emph{Boruta} nie jest możliwe. 
+Wyniki w każdym przypadku są dość mocno zmienne, co wynika z losowości wprowadzonej do algorytmu SPRINT na potrzeby generowania lasów losowych - randomizowanego doboru analizowanych w każdym węźle atrybutów. 
 
-//TODO
-
+Mniej zadowalająco wypadły testy samych algorytmów prof. Koronackiego i \emph{Boruta}. Niezależnie od zbioru danych oraz niezależnie od atrybutu, uzyskiwane wagi atrybutów są niemal zawsze równe 0. Czasami pojawiają się niewielkie wartości dodatnie - zazwyczaj dla atrybutu determinującego klasę rekordu w danym zbiorze. Biorąc pod uwagę uzyskane wyniki, nie daje się wyciągnąć konkluzywanych wniosków na temat róznic w rezultatach generowanych przez algorytmy Koronackiego i \emph{Boruta}. 
 
 
 \end{document}
