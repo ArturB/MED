@@ -42,6 +42,7 @@ void runUserTextInterface(std::string filename, int decision_attr, int algorithm
 	std::cout << "------------ Finished ------------" << std::endl;
 }
 
+// ENTRY POINT
 int main(int argc, char** argv) {
 
 	srand(time(NULL));
@@ -51,7 +52,7 @@ int main(int argc, char** argv) {
 	int decision_attr;
 	int algorithmNr;
 
-	// Jezeli brak parametrów wejœciowych ustawianie ich na domyœlne wertoœci
+	// Jezeli brak parametrów wejœciowych ustawianie ich na domyœlne wartoœci
 	if (argc < 4) {
 		filename = "adult.txt";
 		decision_attr = 1;

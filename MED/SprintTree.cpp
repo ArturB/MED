@@ -8,6 +8,7 @@ SprintTree::SprintTree(int decision_attr_)
 	decision_attr = decision_attr_;
 }
 
+// Metoda statyczna tworz¹ca drzewo decyzyjne na podstawie zbioru danych, indeksu atrybutu okreœlaj¹cego klasê rekordu oraz progu wsp. Giniego, poni¿ej którego twrozymy liœæ drzewa decyzyjnego. 
 SprintTree SprintTree::create(ParsedData<std::string>& data, int decision_attr_, double gini_thr) {
 	std::vector<int> set;
 	for (int i = 0; i < data.getData().size(); ++i) {
@@ -16,6 +17,7 @@ SprintTree SprintTree::create(ParsedData<std::string>& data, int decision_attr_,
 	return SprintTree(data, set, decision_attr_, gini_thr);
 }
 
+// zerujemy licznoœci klas w podzbiorach. Metoda prywatna. 
 void SprintTree::clear_subset_vals(ParsedData<std::string>& data, std::vector<int> set_) {
 	for (int i = 0; i < set_.size(); ++i) {
 		subset_1_attr_vals[data.getElem(set_[i], decision_attr)] = 0;
@@ -23,19 +25,19 @@ void SprintTree::clear_subset_vals(ParsedData<std::string>& data, std::vector<in
 	}
 }
 
+// Rekurencyjny konstruktor tworz¹cy drzewo decyzyjne. Wywo³ywany przez metodê statyczn¹ SprintTree::create. Nie u¿ywaæ bezpoœrednio. 
 SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int decision_attr_, double gini_thr) {
 	decision_attr = decision_attr_;
 
+	// oblicz giniego dla ca³ego zbioru
 	clear_subset_vals(data, set_);
 	for (int i = 0; i < set_.size(); ++i) {
 		subset_1_attr_vals[data.getElem(set_[i], decision_attr)] += 1;
 		subset_2_attr_vals[data.getElem(set_[i], decision_attr)] += 1;
 	}
-
 	double gini0 = gini(data, set_, set_);
 
-	//std::cout << "Calculating next node... Data size: " << set_.size() << ", total gini: " << gini0 << std::endl;
-
+	// jeœli trzeba, zakoñcz rekursjê i wygeneruj liœæ
 	if (set_.size() < 2 || gini0 < gini_thr) {
 
 		decision_class = biggest_class(data, set_);
@@ -45,9 +47,8 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 		Left = nullptr;
 		Right = nullptr;
 
-		//std::cout << "Reached a leaf!" << std::endl;
-
 	}
+	// jeœli nie, losuj atrybuty i wybierz optymaln¹ decyzjê
 	else {
 		SprintPartition best_decision;
 		best_decision.gini = 1.9;
@@ -70,18 +71,10 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 			checked_attrs.push_back(val);
 		}
 
-		/*std::cout << "Choosed columns: ";
-		for (int i = 0; i < checked_attrs.size(); ++i) {
-			std::cout << checked_attrs[i] << ", ";
-		}
-		std::cout << std::endl;*/
-
 		for (int i = 1; i < checked_attr_num; ++i) {
 			int h = checked_attrs[i];
 			if (h != decision_attr) {
-				//std::cout << "Checking column " << i << std::endl;
 				if (data.getHeaders()[h].type == DISCRETE) {
-					//std::cout << "Checking discrete column" << std::endl;
 					part = best_attr_discrete_partition(data, set_, h);
 					if (part.gini < best_decision.gini) {
 						best_decision = part;
@@ -109,9 +102,9 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 			Right = nullptr;
 		}
 		else {
-			//std::cout << "Decision type made: " << printPartType(best_decision.part_type) << std::endl;
 			decision = best_decision;
 
+			// rekurencyjnie generuj lewe i prawe poddrzewo
 			Left = new SprintTree(data, decision.set1, decision_attr_, gini_thr);
 			Right = new SprintTree(data, decision.set2, decision_attr_, gini_thr);
 		}
@@ -124,6 +117,7 @@ SprintTree::~SprintTree()
 {
 }
 
+// zwraca najliczniejsz¹ w zbiorze danych klasê. Metoda prywatna. 
 std::string SprintTree::biggest_class(ParsedData<std::string>& data, std::vector<int> set) {
 	std::unordered_map<std::string, int> sizes = std::unordered_map<std::string, int>();
 	for (int i = 0; i < set.size(); ++i) {
@@ -140,8 +134,10 @@ std::string SprintTree::biggest_class(ParsedData<std::string>& data, std::vector
 	return res;
 }
 
-//assumes that data are sorted by column col_num
+// Wybiera najlepszy podzia³ na podzbiory dla atrybutu typu numerycznego. Metoda prywatna. 
 SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>& data, std::vector<int>& set, int col_num) {
+	
+	// posortuj dane wed³ug analizowanego atrybutu w porz¹dku niemalej¹cym. 
 	ParsedData<std::string> sorted;
 	sorted.setHeaders(data.getHeaders());
 	for (int i = 0; i < set.size(); ++i) {
@@ -174,6 +170,7 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 
 	double best_gini = gini(sorted, set1, set2);
 
+	// kolejne wartoœci analizowanego atrybutu przyjmujemy jako progi odciêcia i wyznaczamy wsp. Giniego dla takiego podzia³u. 
 	for (int i = 0; i < set.size() - 1; ++i) {
 		
 		if (sorted.getElem(set1.back(),col_num) == sorted.getElem(set2.back(),col_num)) {
@@ -203,6 +200,7 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 	set1.clear();
 	set2.clear();
 
+	// Zapamiêtujemy i odtwarzamy najlepszy podzia³. 
 	for (int j = 0; j < set.size(); ++j) {
 		if (std::stoi(data.getData()[set[j]][col_num]) <= best_thr) {
 			set1.push_back(set[j]);
@@ -221,7 +219,10 @@ SprintPartition SprintTree::best_attr_numeric_partition(ParsedData<std::string>&
 	return res;
 }
 
+// Wybiera najlepszy podzia³ dla atrybutu typu dyskretnego. Metoda prywatna, 
 SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>& data, std::vector<int>& set, int col_num) {
+	
+	// wyznacz zbiór wartoœci analizowanego atrybutu
 	std::vector<std::string> vals = std::vector<std::string>();
 	for (int i = 0; i < set.size(); ++i) {
 		if (std::find(vals.begin(), vals.end(), data.getElem(set[i],col_num)) == vals.end()) {
@@ -232,9 +233,10 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 	std::vector<int> set2;
 	std::string best_thr;
 	double best_gini = 1.1;
+
+	// wybieramy ró¿ne kombinacje elementów nale¿¹cych i nienale¿¹cych do zbioru i obliczamy dla nich Giniego
 	for (int i = 0; i < vals.size(); ++i) {
 		std::string thr = vals[i];
-		//std::cout << "Checking discrete thr = " << thr << std::endl;
 		for (int j = 0; j < set.size(); ++j) {
 			if (data.getElem(set[j],col_num) == thr) {
 				set1.push_back(j);
@@ -264,6 +266,8 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 	res.gini = best_gini;
 	set1.clear();
 	set2.clear();
+
+	// zapamiêtujemy i odtwarzamy najlepszy podzia³
 	for (int j = 0; j < set.size(); ++j) {
 		if (data.getElem(set[j],col_num) == best_thr) {
 			set1.push_back(j);
@@ -272,6 +276,7 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 			set2.push_back(j);
 		}
 	}
+
 	if (set1.size() == 0) {
 		res.gini = 2;
 	}
@@ -284,6 +289,7 @@ SprintPartition SprintTree::best_attr_discrete_partition(ParsedData<std::string>
 	return res;
 }
 
+// oblicza wspó³czynnik Giniego, korzysta z licznoœci klas w podzbiorach zachowanych w polach subset_1_attr_vals i subset_2_attr_vals. 
 double SprintTree::gini(ParsedData<std::string>& data, std::vector<int>& set1, std::vector<int>& set2) {
 	double sizes1sum = set1.size();
 	double sizes2sum = set2.size();
@@ -300,6 +306,7 @@ double SprintTree::gini(ParsedData<std::string>& data, std::vector<int>& set1, s
 	return (gini1 * sizes1sum / sum) + (gini2 * sizes2sum / sum);
 }
 
+// Klasyfikuje rekord na ju¿ utworzonym drzewie. 
 std::string SprintTree::classify(std::vector<std::string>& row) {
 	if (decision.part_type == LEAF) {
 		return decision_class;
@@ -322,6 +329,7 @@ std::string SprintTree::classify(std::vector<std::string>& row) {
 	}
 }
 
+// Oblicza skutecznoœæ klasyfikacji na zbiorze rekordów testuj¹cych. 
 double SprintTree::accuracy(ParsedData<std::string>& data) {
 	double pos = 0;
 	for (int i = 0; i < data.getData().size(); ++i) {
@@ -332,6 +340,7 @@ double SprintTree::accuracy(ParsedData<std::string>& data) {
 	return pos / data.getData().size();
 }
 
+// Zwraca liczbê wêz³ów w drzewie. 
 int SprintTree::nodes_number() {
 	if (decision.part_type == LEAF)
 		return 1;
@@ -339,6 +348,7 @@ int SprintTree::nodes_number() {
 		return 1 + Left->nodes_number() + Right->nodes_number();
 }
 
+// Zwraca liczbê liœci w drzewie. 
 int SprintTree::leafs_number() {
 	if (decision.part_type == LEAF)
 		return 1;

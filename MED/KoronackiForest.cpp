@@ -1,7 +1,7 @@
 #include "KoronackiForest.h"
 
 
-
+// prosty konstruktor przyjmuj¹cy próg wsp. Giniego, poni¿ej którego tworzony jest liœæ drzewa decyzyjnego. 
 KoronackiForest::KoronackiForest(double gini_thr) {
 	this->gini_thr = gini_thr;
 }
@@ -79,6 +79,7 @@ ParsedData<std::string> KoronackiForest::permutateDataSetAttr(ParsedData<std::st
 	}
 
 	permutedDataSet.setColumn(attrIndex, permutedColumn);
+
 	return permutedDataSet;
 }
 
@@ -98,6 +99,7 @@ std::pair<std::map<int, double>, std::map<int, double>> KoronackiForest::getAttr
 		attrsAccuracy[x.first] = tree.accuracy(trainingData);
 		ParsedData<std::string> t = permutateDataSetAttr(trainingData, x.first);
 		permAttrsAccuracy[x.first] = tree.accuracy(t);
+		
 	}
 
 	std::pair<std::map<int, double>, std::map<int, double>> allAttrsAccuracy = std::pair<std::map<int, double>, std::map<int, double>>(attrsAccuracy, permAttrsAccuracy);
@@ -106,7 +108,7 @@ std::pair<std::map<int, double>, std::map<int, double>> KoronackiForest::getAttr
 
 
 //Zwraca wagi kolejnych atrybutów.
-//Waga jest liczona jako ró¿nica dok³adnoœci klsyfikacji dla danych i dok³adnoœci klsyfikacji dla danych im odpowiadaj¹cym ze zpermutowanymi wartoœciami
+//Waga jest liczona jako ró¿nica dok³adnoœci klasyfikacji dla danych i dok³adnoœci klsyfikacji dla danych im odpowiadaj¹cym ze zpermutowanymi wartoœciami
 std::map<int, double> KoronackiForest::getAttrsWeight(std::map<int, double>& attrsAccuracy, std::map<int, double>& attrsAccuracyPermuted) {
 
 	std::map<int, double> attrsWeight = std::map<int, double>();

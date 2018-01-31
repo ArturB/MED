@@ -1,7 +1,7 @@
 #include "BorutaForest.h"
 
 
-
+// prosty konstruktor przyjmuj¹cy próg wsp. Giniego, poni¿ej którego tworzony jest liœæ drzewa decyzyjnego. 
 BorutaForest::BorutaForest(double gini_thr):koroneckiForest(gini_thr) {
 	this->gini_thr = gini_thr;
 }

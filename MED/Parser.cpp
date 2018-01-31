@@ -1,7 +1,7 @@
 #include "Parser.h"
 
 
-
+// konstruktor domyœlny
 Parser::Parser() {
 }
 

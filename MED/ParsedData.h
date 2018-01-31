@@ -3,30 +3,61 @@
 #include <vector>
 #include "DataTypes.h"
 
+// klasa reprezentuj¹ca dane sparsowane z pliku CSV. Dane reprezentowane s¹ w formie macierzy 2D (wektor wektorów). 
+// Mo¿liwy jest dowolny typ elementów, ale w praktyce korzystamy z parsowania do std::string. 
 template<typename T>
 class ParsedData
 {
 private:
+	
+	// nag³ówki wystêpuj¹cych w zbiorze danych atrybutów
 	std::vector<DataHeader> headers;
+
+	// sparsowane dane w formie macierzy 2D
 	std::vector<std::vector<T>> data;
 
 public:
+
+	// domyœlny konstruktor
 	ParsedData();
 
+	// konstruktor pobieraj¹cy dane oraz ich nag³ówki
 	ParsedData(std::vector<std::vector<T>> data, std::vector<DataHeader> headers);
+
+	// zwraca nag³ówki danych
 	std::vector<DataHeader>& getHeaders();
+
+	// setter dla nag³ówków danych
 	void setHeaders(std::vector<DataHeader>& headers_);
+
+	// pobiera i-ty wiersz danych
 	std::vector<T>& getRow(int i);
+
+	// pozwala na dodanie nowego wiersza danych na koñcu 
 	void addRow(const std::vector<T>& row);
+
+	// zmienia i-ty wiersz danych
 	void setRow(int i, const std::vector<T>& row);
+
+	// usuwa i-ty wiersz danych
 	void removeRow(int index);
+
+	// pobiera i-t¹ kolumnê danych
 	std::vector<T> getColumn(int i);
+
+	// dodaje now¹ kolumnê danych na koñcu
 	void addColumn(const std::vector<T>& column, DataHeader header);
+
+	// zmienia i-t¹ kolumnê danych
 	void setColumn(int i, const std::vector<T>& column);
 
+	// pobiera element z wiersza row_num i kolumny col_num. 
 	std::string getElem(int row_num, int col_num);
 
+	// zwraca referencjê do ca³ego zbioru danych. 
 	std::vector<std::vector<T>>& getData();
+
+	// pozwala zmieniæ zbiór danych jako ca³oœæ. 
 	void setData(std::vector<std::vector<std::string>>& data_);
 
 	~ParsedData();

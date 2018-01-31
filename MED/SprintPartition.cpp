@@ -1,5 +1,6 @@
 #include "SprintPartition.h"
 
+// Konwertuje typ decyzji podejmowanej w drzewie na stringa, którego mo¿na wypisaæ na stdout np. w celach debugowych
 std::string printPartType(PART_TYPE type) {
 	if (type == NO) {
 		return "No partition";
@@ -15,6 +16,7 @@ std::string printPartType(PART_TYPE type) {
 	}
 }
 
+// domyœlny konstruktor
 SprintPartition::SprintPartition()
 {
 }
