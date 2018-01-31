@@ -143,24 +143,22 @@ Czas działania programu zależy oczywiście od rozmiaru analizowanych danych or
 	\centering
 	\begin{tabular}{|c|c|} \hline
 		Koronacki & Boruta \\ 
-		13.959 s & 26.731 s \\ 
-		12.456 & 25.768 \\ 
-		14.67 & 23.67 \\ 
-		14.01 & 24.567 \\ 
-		14.563 & 24.987 \\ 
-		13.959 s & 26.731 s \\ 
-		12.456 & 25.768 \\ 
-		14.67 & 23.67 \\ 
-		14.01 & 24.567 \\ 
-		14.563 & 24.987 \\ \hline
+		25.995 s & 37.659 s \\ 
+		25.505 & 34.928 \\ 
+		23.171 & 42.025 \\ 
+		22.417 & 33.551 \\ 
+		17.539 & 39.937 \\ 
+		21.763 s & 37.819 s \\ 
+		24.898 & 33.199 \\ 
+		21.67 & 29.482 \\ 
+		19.06 & 34.335 \\ 
+		28.045 & 41.076 \\ \hline
 	\end{tabular}
 \caption{Przykładowe czasy wykonania programu na zbiorze danych Adults.}
 \label{tab:times}
 \end{table}
 
-Przeciętny czas wykonania programu wynosi //TODO a odchyleniem standardowym //TODO, co - biorąc pod uwage rozmiar zbioru Adults wynoszący 30.000 //TODO rekordów wydaje się być zadowalającym wynikiem. Na uwagę zasługuje fakt, że algorytm \emph{Boruta} wykonuje się ok. dwukrotnie dłużej od algorytmu prof. Koronackiego - wynika to niewątpliwie z faktu, że algorytm \emph{Boruta} wymaga skopiowania wszystkich atrybutów na zbiorze danych - poza tym, algorytmy są do siebie bardzo podobne. 
-
-Oprócz samego tworzenia lasu losowego, w programie występuje pewien czynnik stały, związany z parsowaniem pliku CSV z danymi. 
+Przeciętny czas wykonania programu wynosi metodą prof. Koronackiego wynosi 23.11 sek, z odchyleniem standardowym 3.15 sek, natomiast metodą \emph{Boruta} wynosi 36.4 sek, z odchyleniem 3.77 sek. Na uwagę zasługuje fakt, że algorytm \emph{Boruta} wykonuje się ok. 1,57 razy dłużej od algorytmu prof. Koronackiego - wynika to niewątpliwie z faktu, że algorytm \emph{Boruta} wymaga skopiowania wszystkich atrybutów na zbiorze danych - poza tym, algorytmy są do siebie bardzo podobne. Co prawda liczba atrybutów z zbiorze danych jest podwajana, ale w algorytmie lasu losowego nie są analizowane wszystkie atrybutu tylko ich część równa $\lfloor\sqrt{\left|A\right|}\rfloor$. Dla 15 atrybutów wybieramy więc zawsze 3, a dla 30 - 5. Stosunek tych liczb 1.6 odpowiada niemal dokładnie róznicy wykonania algorytmu Koronackiego i \emph{Boruta} (1.57). Niewielka róznica wynika zapewne z faktu, że oprócz samego tworzenia lasu losowego, w programie występuje pewien czynnik stały, związany z parsowaniem pliku CSV z danymi. 
 
 \subsection{Wyniki}
 
