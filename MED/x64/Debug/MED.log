@@ -1,16 +1,5 @@
 ﻿  main.cpp
 c:\users\mateusz\documents\med\med\main.cpp(47): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Parser.cpp
-  KoronackiForest.cpp
-c:\users\mateusz\documents\med\med\koronackiforest.cpp(35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\mateusz\documents\med\med\koronackiforest.cpp(71): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\mateusz\documents\med\med\koronackiforest.cpp(133): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  BorutaForest.cpp
-c:\users\mateusz\documents\med\med\borutaforest.cpp(19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\mateusz\documents\med\med\borutaforest.cpp(20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\mateusz\documents\med\med\borutaforest.cpp(45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
 C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1193,5): warning MSB8030: The linker switch "Minimum Required Version" requires "SubSystem" to be set.  Without "SubSystem", the "Minimum Required Version" would not be passed to linker and could prevent to the output binary from running on older Operating Systems.
-  LINK : C:\Users\Mateusz\Documents\MED\x64\Debug\MED.exe not found or not built by the last incremental link; performing full link
   MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.exe
   MED.vcxproj -> C:\Users\Mateusz\Documents\MED\x64\Debug\MED.pdb (Full PDB)

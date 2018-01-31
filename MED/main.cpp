@@ -44,14 +44,14 @@ void runUserTextInterface(std::string filename, int decision_attr, int algorithm
 
 int main(int argc, char** argv) {
 
-	//srand(time(NULL));
+	srand(time(NULL));
 	std::string filename;
 	int decision_attr;
 	int algorithmNr;
 
 	// Jezeli brak parametrów wejœciowych ustawianie ich na domyœlne wertoœci
 	if (argc < 4) {
-		filename = "adult.txt";
+		filename = "tumor.txt";
 		decision_attr = 1;
 		algorithmNr = 1;
 	}

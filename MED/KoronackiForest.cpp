@@ -64,18 +64,22 @@ std::pair<std::vector<ParsedData<std::string>>, ParsedData<std::string>> Koronac
 //Losowa permutacja wartoœci w wierszach podanych anych dla podanego atrybutu 
 ParsedData<std::string> KoronackiForest::permutateDataSetAttr(ParsedData<std::string>& dataSet, int attrIndex) {
 
-	std::vector<std::string> permutedColumn = dataSet.getColumn(attrIndex);
 	ParsedData<std::string> permutedDataSet = ParsedData<std::string>();
 	permutedDataSet.setHeaders(dataSet.getHeaders());
 
-	int dataSize = dataSet.getData().size();
+	for (int i = 0; i < dataSet.getData().size(); ++i) {
+		permutedDataSet.getData().push_back(dataSet.getData()[i]);
+	}
+
+	std::vector<std::string> permutedColumn = permutedDataSet.getColumn(attrIndex);
+	int dataSize = permutedDataSet.getData().size();
 
 	for (int i = dataSize; i >= 2; --i) {
 		std::iter_swap(permutedColumn.begin() + (rand() % i), permutedColumn.begin() + (i - 1));
 	}
 
-	dataSet.setColumn(attrIndex, permutedColumn);
-	return dataSet;
+	permutedDataSet.setColumn(attrIndex, permutedColumn);
+	return permutedDataSet;
 }
 
 
@@ -92,7 +96,8 @@ std::pair<std::map<int, double>, std::map<int, double>> KoronackiForest::getAttr
 		std::cout << "Koronacki, calculating tree " << h << "/" << attrsDataSets.size() << std::endl;
 		SprintTree tree = SprintTree::create(x.second, decisionAttr, gini_thr);
 		attrsAccuracy[x.first] = tree.accuracy(trainingData);
-		permAttrsAccuracy[x.first] = tree.accuracy(permutateDataSetAttr(trainingData, x.first));
+		ParsedData<std::string> t = permutateDataSetAttr(trainingData, x.first);
+		permAttrsAccuracy[x.first] = tree.accuracy(t);
 	}
 
 	std::pair<std::map<int, double>, std::map<int, double>> allAttrsAccuracy = std::pair<std::map<int, double>, std::map<int, double>>(attrsAccuracy, permAttrsAccuracy);
