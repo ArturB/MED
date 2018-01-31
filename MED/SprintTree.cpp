@@ -58,7 +58,7 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 			int val;
 			bool val_exists;
 			do {
-				val = std::rand() % checked_attr_num;
+				val = std::rand() % data.getHeaders().size() - 1;
 				val_exists = false;
 				for (int j = 0; i < checked_attrs.size(); ++j) {
 					if (checked_attrs[j] == val) {
@@ -69,6 +69,13 @@ SprintTree::SprintTree(ParsedData<std::string>& data, std::vector<int> set_, int
 			} while (val_exists);
 			checked_attrs.push_back(val);
 		}
+
+		/*std::cout << "Choosed columns: ";
+		for (int i = 0; i < checked_attrs.size(); ++i) {
+			std::cout << checked_attrs[i] << ", ";
+		}
+		std::cout << std::endl;*/
+
 		for (int i = 1; i < checked_attr_num; ++i) {
 			int h = checked_attrs[i];
 			if (h != decision_attr) {

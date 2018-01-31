@@ -44,7 +44,9 @@ void runUserTextInterface(std::string filename, int decision_attr, int algorithm
 
 int main(int argc, char** argv) {
 
-	//srand(time(NULL));
+	srand(time(NULL));
+	std::srand(std::time(0));
+
 	std::string filename;
 	int decision_attr;
 	int algorithmNr;
